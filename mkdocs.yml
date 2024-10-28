@@ -1,7 +1,7 @@
 site_name: digitalbabushka learning
 
 theme:
-    name: 'terminal'
+    name: 'dracula'
     palette:
 
     # # Light mode
@@ -51,7 +51,6 @@ markdown_extensions:
 plugins:
   - search
   - roamlinks
-  - md-to-html
 
 
 extra_javascript:

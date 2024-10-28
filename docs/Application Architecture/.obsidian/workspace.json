@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Introduction.md",
+                "file": "1. Distributed Architecture/1.Integrations/1.Basic Part/0. Request Response.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Introduction"
+              "title": "0. Request Response"
             }
           },
           {
@@ -185,6 +185,7 @@
   },
   "active": "474a065b795169b4",
   "lastOpenFiles": [
+    "Introduction.md",
     "1. Distributed Architecture/1.Integrations/5.Extra materials/0. Extra Materials.md",
     "1. Distributed Architecture/2.Logic Separation/0.Introduction.md",
     "1. Distributed Architecture/1.Integrations/5.Extra materials",
