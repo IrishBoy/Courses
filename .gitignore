@@ -1,2 +1,5 @@
 .vscode/settings.json
 .obsidian/*
+bin
+lib
+include
