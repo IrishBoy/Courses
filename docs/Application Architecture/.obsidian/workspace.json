@@ -11,12 +11,14 @@
             "id": "474a065b795169b4",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "Files/Pasted image 20241024163629.png"
+                "file": "Introduction.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-image",
-              "title": "Pasted image 20241024163629"
+              "icon": "lucide-file",
+              "title": "Introduction"
             }
           },
           {
@@ -183,8 +185,11 @@
   },
   "active": "474a065b795169b4",
   "lastOpenFiles": [
-    "1. Cohesion and Coupeling].md",
+    "1. Distributed Architecture/1.Integrations/5.Extra materials/0. Extra Materials.md",
+    "1. Distributed Architecture/2.Logic Separation/0.Introduction.md",
+    "1. Distributed Architecture/1.Integrations/5.Extra materials",
     "Files/Pasted image 20241024163629.png",
+    "1. Cohesion and Coupeling].md",
     "Files/Pasted image 20241024163341.png",
     "Files/Pasted image 20241024163333.png",
     "2.Data/999.Additional info/ACID.md",
@@ -201,7 +206,6 @@
     "1. Distributed Architecture/2.Logic Separation/SAGA.md",
     "1. Distributed Architecture/2.Logic Separation/5.DDD.md",
     "1. Distributed Architecture/2.Logic Separation/3.MSA.md",
-    "1. Distributed Architecture/2.Logic Separation/0.Introduction.md",
     "Files/Monolith.png",
     "Excalidraw/Monolith.excalidraw.md",
     "Excalidraw/Monolith.excalidraw.svg",
@@ -210,7 +214,6 @@
     "Excalidraw",
     "1. Distributed Architecture/99.Additional Materials/4.Additional Materials.md",
     "1. Distributed Architecture/99.Additional Materials/99.Additional Materials.md",
-    "1. Distributed Architecture/1.Integrations/5. Extra Materials.md",
     "1. Distributed Architecture/1.Integrations/4.Cases/1.POST as GET.md",
     "1. Distributed Architecture/1.Integrations/3.Expert Part/1.RedPanda.md",
     "7.Languages/Untitled.md",
