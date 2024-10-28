@@ -1,7 +1,7 @@
 site_name: digitalbabushka learning
 
 theme:
-    name: 'dracula'
+    name: 'windmill'
     palette:
 
     # # Light mode
