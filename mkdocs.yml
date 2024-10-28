@@ -1,7 +1,7 @@
 site_name: digitalbabushka learning
 
 theme:
-    name: 'windmill-dark'
+    name: 'cinder'
     palette:
 
     # Light mode
