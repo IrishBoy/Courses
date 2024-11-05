@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Persistant Data - digitalbabushka learning</title>
+    <link href="../../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Which data stores provide persistence?", url: "#_top", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../../../../js/base.js"></script>
+      <script src="../../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../../5.Network/DNS/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../../5.Network/DNS/" class="btn btn-xs btn-link">
+        DNS
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../ACID/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../ACID/" class="btn btn-xs btn-link">
+        ACID
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>In the context of storing data in a computer system, this means that the data survives after the process with which it was created has ended. In other words, for a data store to be considered persistent, it must write to non-volatile storage.</p>
+<h3 id="which-data-stores-provide-persistence"><strong>Which data stores provide persistence?</strong><a class="headerlink" href="#which-data-stores-provide-persistence" title="Permanent link">&para;</a></h3>
+<p>If you need persistence in your data store, then you need to also understand the four main design approaches that a data store can take and how (or if) these designs provide persistence:</p>
+<ul>
+<li>Pure in-memory, no persistence at all, such as memcached or Scalaris</li>
+<li>In-memory with periodic snapshots, such as Oracle Coherence or Redis</li>
+<li>Disk-based with update-in-place writes, such as MySQL ISAM or MongoDB</li>
+<li>Commitlog-based, such as all traditional OLTP databases (Oracle, SQL Server, etc.)</li>
+</ul>
+<p>In-memory approaches can achieve blazing speed, but at the cost of being limited to a relatively small data set. Most workloads have relatively small "hot" (active) subset of their total data; systems that require the whole dataset to fit in memory rather than just the active part are fine for caches but a bad fit for most other applications. Because the data is in memory only, it will not survive process termination. Therefore these types of data stores are not considered persistent.</p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../../5.Network/DNS/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../../5.Network/DNS/" class="btn btn-xs btn-link">
+        DNS
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../ACID/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../ACID/" class="btn btn-xs btn-link">
+        ACID
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

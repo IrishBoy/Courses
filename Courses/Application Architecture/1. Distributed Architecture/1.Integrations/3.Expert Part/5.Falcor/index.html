@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>5.Falcor - digitalbabushka learning</title>
+    <link href="../../../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "1. Setting up a Falcor Model", url: "#_top", children: [
+          ]},
+          {title: "2. Fetching Data using Path", url: "#2-fetching-data-using-path", children: [
+          ]},
+          {title: "3. Fetching Multiple Values", url: "#3-fetching-multiple-values", children: [
+          ]},
+          {title: "4. Setting Data in the Falcor Model", url: "#4-setting-data-in-the-falcor-model", children: [
+          ]},
+          {title: "5. Using Falcor Router on the Server-Side", url: "#5-using-falcor-router-on-the-server-side", children: [
+          ]},
+          {title: "6. Combining Falcor with React", url: "#6-combining-falcor-with-react", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../../../../../js/base.js"></script>
+      <script src="../../../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../8.ActiveMQ/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../8.ActiveMQ/" class="btn btn-xs btn-link">
+        8.ActiveMQ
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../4.Avro/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../4.Avro/" class="btn btn-xs btn-link">
+        4.Avro
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>Falcor is a JavaScript library developed by Netflix
+It uses <a href="../../../../Additional%20materials/JSON/">JSON</a></p>
+<p>Key concepts of Falcor:</p>
+<ol>
+<li><strong>Virtual JSON Model</strong>: Falcor presents your data as a <a href="../../../../Additional%20materials/JSON/">JSON</a> object, even if the actual data is spread across different services or databases.</li>
+<li><strong>Path-Based Access</strong>: Instead of making multiple <a href="../../../../5.Network/Protocols/HTTP/">HTTP</a> requests to various APIs, you access data via paths, much like accessing properties in a JavaScript object.</li>
+<li><strong>Optimized Data Fetching</strong>: Falcor only fetches the data you need, minimizing over-fetching and under-fetching of data.</li>
+<li><strong>Caching</strong>: Falcor has built-in client-side caching, reducing the need for redundant network requests.</li>
+</ol>
+<h3 id="1-setting-up-a-falcor-model">1. <strong>Setting up a Falcor Model</strong><a class="headerlink" href="#1-setting-up-a-falcor-model" title="Permanent link">&para;</a></h3>
+<p>This example shows how to create a Falcor model to interact with a virtual <a href="../../../../Additional%20materials/JSON/">JSON</a>  graph.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">falcor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;falcor&#39;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">HttpDataSource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;falcor-http-datasource&#39;</span><span class="p">);</span>
+
+<span class="c1">// Creating a model connected to a Falcor server</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">falcor</span><span class="p">.</span><span class="nx">Model</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">source</span><span class="o">:</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">HttpDataSource</span><span class="p">(</span><span class="s1">&#39;/model.json&#39;</span><span class="p">)</span><span class="w">  </span><span class="c1">// URL to your Falcor server</span>
+<span class="p">});</span>
+</code></pre></div>
+<h3 id="2-fetching-data-using-path">2. <strong>Fetching Data using Path</strong><a class="headerlink" href="#2-fetching-data-using-path" title="Permanent link">&para;</a></h3>
+<p>In this example, you fetch data by specifying a path within your virtual <a href="../../../../Additional%20materials/JSON/">JSON</a>  model.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Retrieve data from a specific path in the virtual JSON model</span>
+<span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">([</span><span class="s1">&#39;movies&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">1234</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;title&#39;</span><span class="p">]).</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">);</span><span class="w"> </span><span class="c1">// Output: { movies: { 1234: { title: &#39;The Matrix&#39; } } }</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>Here, we are retrieving the title of a movie with ID <code>1234</code> by requesting the path <code>['movies', 1234, 'title']</code>.</p>
+<h3 id="3-fetching-multiple-values">3. <strong>Fetching Multiple Values</strong><a class="headerlink" href="#3-fetching-multiple-values" title="Permanent link">&para;</a></h3>
+<p>You can request multiple values from different paths in a single call.</p>
+<div class="highlight"><pre><span></span><code><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span>
+<span class="w">    </span><span class="p">[</span><span class="s1">&#39;movies&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">1234</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;title&#39;</span><span class="p">],</span>
+<span class="w">    </span><span class="p">[</span><span class="s1">&#39;movies&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">1234</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;releaseYear&#39;</span><span class="p">],</span>
+<span class="w">    </span><span class="p">[</span><span class="s1">&#39;movies&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">5678</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;title&#39;</span><span class="p">]</span>
+<span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// Output:</span>
+<span class="w">    </span><span class="c1">// {</span>
+<span class="w">    </span><span class="c1">//   movies: {</span>
+<span class="w">    </span><span class="c1">//     1234: { title: &#39;The Matrix&#39;, releaseYear: 1999 },</span>
+<span class="w">    </span><span class="c1">//     5678: { title: &#39;Inception&#39; }</span>
+<span class="w">    </span><span class="c1">//   }</span>
+<span class="w">    </span><span class="c1">// }</span>
+<span class="p">});</span>
+</code></pre></div>
+<h3 id="4-setting-data-in-the-falcor-model">4. <strong>Setting Data in the Falcor Model</strong><a class="headerlink" href="#4-setting-data-in-the-falcor-model" title="Permanent link">&para;</a></h3>
+<p>You can also update data in the model using <code>set()</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="nx">model</span><span class="p">.</span><span class="nx">set</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;movies&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">1234</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;title&#39;</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;The Matrix Reloaded&#39;</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// Output: { movies: { 1234: { title: &#39;The Matrix Reloaded&#39; } } }</span>
+<span class="p">});</span>
+</code></pre></div>
+<h3 id="5-using-falcor-router-on-the-server-side">5. <strong>Using Falcor Router on the Server-Side</strong><a class="headerlink" href="#5-using-falcor-router-on-the-server-side" title="Permanent link">&para;</a></h3>
+<p>Here’s an example of a simple <strong>Falcor Router</strong> on the server that serves data.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">falcorExpress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;falcor-express&#39;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">Router</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;falcor-router&#39;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">express</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">express</span><span class="p">();</span>
+
+<span class="c1">// Define the Falcor route</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;/model.json&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">falcorExpress</span><span class="p">.</span><span class="nx">dataSourceRoute</span><span class="p">((</span><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">res</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Router</span><span class="p">([</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">route</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;movies[{integers:ids}][&#39;title&#39;, &#39;releaseYear&#39;]&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">get</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">pathSet</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="kd">const</span><span class="w"> </span><span class="nx">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[];</span>
+<span class="w">                </span><span class="nx">pathSet</span><span class="p">.</span><span class="nx">ids</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nx">results</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+<span class="w">                        </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;movies&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;title&#39;</span><span class="p">],</span>
+<span class="w">                        </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">1234</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s1">&#39;The Matrix&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Inception&#39;</span>
+<span class="w">                    </span><span class="p">});</span>
+<span class="w">                    </span><span class="nx">results</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+<span class="w">                        </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;movies&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;releaseYear&#39;</span><span class="p">],</span>
+<span class="w">                        </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">1234</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mf">1999</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mf">2010</span>
+<span class="w">                    </span><span class="p">});</span>
+<span class="w">                </span><span class="p">});</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="nx">results</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]);</span>
+<span class="p">}));</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mf">3000</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Falcor server running on port 3000&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>This sets up a Falcor router that responds to requests for movie titles and release years based on the provided movie IDs.</p>
+<h3 id="6-combining-falcor-with-react">6. <strong>Combining Falcor with React</strong><a class="headerlink" href="#6-combining-falcor-with-react" title="Permanent link">&para;</a></h3>
+<p>You can use Falcor with React to fetch and display data.</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">React</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">useEffect</span><span class="p">,</span><span class="w"> </span><span class="nx">useState</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">falcor</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;falcor&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">HttpDataSource</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;falcor-http-datasource&#39;</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">falcor</span><span class="p">.</span><span class="nx">Model</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">source</span><span class="o">:</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">HttpDataSource</span><span class="p">(</span><span class="s1">&#39;/model.json&#39;</span><span class="p">)</span>
+<span class="p">});</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">MoviesList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">movies</span><span class="p">,</span><span class="w"> </span><span class="nx">setMovies</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">([]);</span>
+
+<span class="w">    </span><span class="nx">useEffect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">([</span><span class="s1">&#39;movies&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mf">1234</span><span class="p">,</span><span class="w"> </span><span class="mf">5678</span><span class="p">],</span><span class="w"> </span><span class="s1">&#39;title&#39;</span><span class="p">]).</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">setMovies</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">.</span><span class="nx">movies</span><span class="p">);</span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">    </span><span class="p">},</span><span class="w"> </span><span class="p">[]);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+<span class="w">            </span><span class="p">{</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">movies</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">(</span>
+<span class="w">                </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">id</span><span class="p">}</span><span class="o">&gt;</span>
+<span class="w">                    </span><span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">movies</span><span class="p">[</span><span class="nx">id</span><span class="p">].</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+<span class="w">                </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="w">            </span><span class="p">))}</span>
+<span class="w">        </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">MoviesList</span><span class="p">;</span>
+</code></pre></div>
+<p>In this example, the <code>MoviesList</code> component fetches movie titles with IDs <code>1234</code> and <code>5678</code> when the component loads, and displays them in the <a href="../../../../Additional%20materials/UI/">UI</a>.</p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../8.ActiveMQ/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../8.ActiveMQ/" class="btn btn-xs btn-link">
+        8.ActiveMQ
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../4.Avro/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../4.Avro/" class="btn btn-xs btn-link">
+        4.Avro
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

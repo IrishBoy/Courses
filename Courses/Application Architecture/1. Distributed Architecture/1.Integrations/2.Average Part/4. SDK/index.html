@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>4. SDK - digitalbabushka learning</title>
+    <link href="../../../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "What about examples ?", url: "#_top", children: [
+              {title: "Asana SDK", url: "#asana-sdk" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../../../../../js/base.js"></script>
+      <script src="../../../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../5.%20ESB/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../5.%20ESB/" class="btn btn-xs btn-link">
+        5. ESB
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../3.RabbitMQ/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../3.RabbitMQ/" class="btn btn-xs btn-link">
+        3.RabbitMQ
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>SDK - <strong>software development kit</strong>
+This is a tool that allows you to communicate with some external system using your programming language. Sounds a bit frustrating, so, let's say that 
+SDK == a couple of libraries
+Here you can see difference between API, Library and SDK
+<img alt="APISDKLIBRARY.png" src="../../../../Files/APISDKLIBRARY.png" /></p>
+<h1 id="what-about-examples">What about examples ?<a class="headerlink" href="#what-about-examples" title="Permanent link">&para;</a></h1>
+<h2 id="asana-sdk">Asana SDK<a class="headerlink" href="#asana-sdk" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1">// Install by running `npm i asana`</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">Asana</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;asana&#39;</span><span class="p">);</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="nx">asanaClient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Asana</span><span class="p">.</span><span class="nx">ApiClient</span><span class="p">.</span><span class="nx">instance</span><span class="p">;</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">clientToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">asanaClient</span><span class="p">.</span><span class="nx">authentications</span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">];</span>
+<span class="nx">clientToken</span><span class="p">.</span><span class="nx">accessToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="nx">tasksApiInstance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Asana</span><span class="p">.</span><span class="nx">TasksApi</span><span class="p">();</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="s2">&quot;limit&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">50</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;project&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="p">};</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">tasksApiInstance</span><span class="p">.</span><span class="nx">getTasks</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span>
+</code></pre></div>
+<p>This code allows to create a task in Asana without making any http request manualy</p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../5.%20ESB/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../5.%20ESB/" class="btn btn-xs btn-link">
+        5. ESB
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../3.RabbitMQ/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../3.RabbitMQ/" class="btn btn-xs btn-link">
+        3.RabbitMQ
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

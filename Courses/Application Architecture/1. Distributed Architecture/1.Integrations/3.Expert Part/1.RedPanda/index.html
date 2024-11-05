@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>1.RedPanda - digitalbabushka learning</title>
+    <link href="../../../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Kafka vs Red Panda", url: "#_top", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../../../../../js/base.js"></script>
+      <script src="../../../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../2.Short%20polling%20VS%20%20Long%20polling/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../2.Short%20polling%20VS%20%20Long%20polling/" class="btn btn-xs btn-link">
+        2.Short polling VS  Long polling
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../2.Average%20Part/5.%20ESB/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../2.Average%20Part/5.%20ESB/" class="btn btn-xs btn-link">
+        5. ESB
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>Redpanda is a source available (BSL), Apache Kafka®-compatible, streaming data platform designed from the ground up to be lighter, faster, and simpler to operate. It employs a single binary architecture, free from ZooKeeper and JVMs, with a built-in Schema Registry and HTTP Proxy.</p>
+<p><img alt="redpanda.svg" src="../../../../Files/redpanda.svg" /></p>
+<ul>
+<li><strong>No Java</strong>: A JVM-free and ZooKeeper-free infrastructure.</li>
+<li><strong>Designed in C++</strong>: Designed for a better performance than Apache Kafka.</li>
+<li><strong>A single-binary architecture</strong>: No dependencies to other libraries or nodes.</li>
+<li><strong>Self-managing and self-healing</strong>: A simple but scalable architecture for on-premise and cloud deployments.</li>
+<li><strong>Kafka-compatible</strong>: Out-of-the-box support for the Kafka protocol with existing applications, tools, and integrations.</li>
+</ul>
+<p><img alt="Untitled 20.png" src="../../../../Files/Untitled%2020.png" /></p>
+<p><img alt="Untitled 1 7.png" src="../../../../Files/Untitled%201%207.png" /></p>
+<p><img alt="Untitled 2 6.png" src="../../../../Files/Untitled%202%206.png" /></p>
+<p><img alt="Untitled 3 5.png" src="../../../../Files/Untitled%203%205.png" /></p>
+<p><img alt="Untitled 4 5.png" src="../../../../Files/Untitled%204%205.png" /></p>
+<p><img alt="Untitled 5 3.png" src="../../../../Files/Untitled%205%203.png" /></p>
+<h2 id="kafka-vs-red-panda"><a href="../../1.Basic%20Part/5.kafka/"> Kafka</a> vs Red Panda<a class="headerlink" href="#kafka-vs-red-panda" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Kafka</th>
+<th>Red panda</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>License</strong></td>
+<td>Open source  <br>Under the Apache License governed by the Apache Software Foundation.</td>
+<td>Source available  <br>Under the Business Source License (BSL) with proprietary paid features available under an enterprise license.</td>
+</tr>
+<tr>
+<td><strong>Contribution model and commercial backing</strong></td>
+<td>Open  <br>Actively managed and maintained by 1,000+ full-time contributors at over a dozen companies and commercially backed by a broad coalition of vendors.</td>
+<td>Restricted  <br>Solely developed and maintained by Redpanda, with restrictive commercial support from other vendors due to BSL license agreement.</td>
+</tr>
+<tr>
+<td><strong>Source Language</strong></td>
+<td>Java</td>
+<td>C++</td>
+</tr>
+<tr>
+<td><strong>ZooKeeper Dependency</strong></td>
+<td>No dependency  <br>ZooKeeper was removed by KRaft since version 3.3+</td>
+<td>No dependency  <br>ZooKeeper-free and uses the Raft consensus algorithm.</td>
+</tr>
+<tr>
+<td><strong>Storage Pattern and Performance Impact</strong></td>
+<td>Consistent performance across most real-world workloads  <br>  <br>Kafka has a purpose-built log and replication layer optimized for sequential IO, which allows it to deliver high throughput and low latency across a broad set of hardware and workloads.</td>
+<td>Performance optimized for selective workloads  <br>  <br>Redpanda can demonstrate low latency and high throughput on simple workloads. However, because it’s optimized for random IO, its performance can significantly degrade over time.  <br>  <br>Several common production configurations, such as high producer count, over 30% disk utilization, enabling message keys, enabling TLS, or running for more than 24 hours can cause severe reductions in performance.</td>
+</tr>
+<tr>
+<td><strong>Broker Framework</strong></td>
+<td>Purpose-built immutable log  <br>Uses its own purpose-built framework. Data is written in large blocks as high throughput sequential IO, allowing for high performance on drives with even very low IOPS.</td>
+<td>Based on Seastar  <br>Uses the Seastar framework, popularized by the Scylla Database, to implement its immutable log. Writes data in small 16kB chunks by default, requiring very high IOPS SSDs.</td>
+</tr>
+<tr>
+<td><strong>Tiered Storage</strong></td>
+<td>In Progress with KIP-405  <br>Slated for early access in Kafka release 3.6.</td>
+<td>Requires Enterprise License  <br>Redpanda’s tiered storage requires the purchase of an enterprise license.</td>
+</tr>
+<tr>
+<td><strong>Replication Protocol</strong></td>
+<td>Kafka replication (ISR)  <br>Replication is synchronous but data is written to disk asynchronously by design. Brokers don’t need to fsync for correctness and have in-built data recovery and repair.</td>
+<td><a href="../../../../Additional%20materials/Raft%20protocol/">Raft protocol</a>  <br>Both replication and writing to disk are synchronous.  <br>Data must be written (fsynced) to disk synchronously, otherwise, it is possible to lose data during an election of a new leader.</td>
+</tr>
+<tr>
+<td><strong>Cloud Network Optimized</strong></td>
+<td>Optimized for cloud  <br>Follower Fetching  enables clients to read data from follower replicas in the current AZ, avoiding cross-AZ network costs</td>
+<td>Cloud optimization in beta  <br>Follower fetching recently released in version 23.2.</td>
+</tr>
+<tr>
+<td><strong>Connectors and Stream Processing</strong></td>
+<td>Included  <br>Kafka Connect and Kafka Streams are packaged as part of the core open source Kafka offering. These two components allow you to connect applications and databases together and process data streams at scale.</td>
+<td>Not Included  <br>Not included with Redpanda. While Kafka Connect and Kafka Streams are compatible, they require you to configure, manage, and scale your own JVM-based applications and jobs.</td>
+</tr>
+<tr>
+<td><strong>Breadth of adoption</strong></td>
+<td>Vast developer ecosystem and community  <br>Apache Kafka is used by 100,000+ organizations, including 80% of F100 companies, including Goldman Sachs, Netflix and Uber  <br></td>
+<td>Limited adoption and community  <br>Redpanda is used by thousands of organizations (undisclosed)  <br></td>
+</tr>
+</tbody>
+</table>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../2.Short%20polling%20VS%20%20Long%20polling/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../2.Short%20polling%20VS%20%20Long%20polling/" class="btn btn-xs btn-link">
+        2.Short polling VS  Long polling
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../2.Average%20Part/5.%20ESB/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../2.Average%20Part/5.%20ESB/" class="btn btn-xs btn-link">
+        5. ESB
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

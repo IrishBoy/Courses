@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>3.RabbitMQ - digitalbabushka learning</title>
+    <link href="../../../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "RabbitMQ", url: "#_top", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../../../../../js/base.js"></script>
+      <script src="../../../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../4.%20SDK/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../4.%20SDK/" class="btn btn-xs btn-link">
+        4. SDK
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../2.Web%20hooks%20and%20Polling/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../2.Web%20hooks%20and%20Polling/" class="btn btn-xs btn-link">
+        2.Web hooks and Polling
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h3 id="rabbitmq">RabbitMQ<a class="headerlink" href="#rabbitmq" title="Permanent link">&para;</a></h3>
+<p>RabbitMQ is another example of <a href="../../1.Basic%20Part/4.Pub-sub%20vs%20message%20queue/"> message broker</a></p>
+<p>It works on <a href="../../../../5.Network/Protocols/AMQP/">AMQP</a></p>
+<p>Here you can observe architecture
+<img alt="RabbitMQ.png" src="../../../../Files/RabbitMQ.png" /></p>
+<p>So, the main difference from <a href="../../1.Basic%20Part/5.kafka/">kafka</a> is the presence of</p>
+<ul>
+<li><strong>Exchange</strong>: Receives messages from producers and routes them to queues based on the rules set by the exchange type. For a queue to receive messages, it must be bound to at least one exchange.</li>
+<li><strong>Direct Exchange</strong>: Routes messages to queues based on an exact match between the message routing key and the queue's binding key.</li>
+<li><strong>Fanout Exchange</strong>: Broadcasts messages to all queues bound to the exchange, ignoring the routing key.</li>
+<li><strong>Topic Exchange</strong>: Routes messages to queues based on pattern matching between the routing key and the queue's binding key, allowing flexible and wildcard matching.</li>
+<li><strong>Headers Exchange</strong>: Routes messages based on matching message header values rather than the routing key.</li>
+<li><strong>Binding</strong>: A binding creates a connection between a queue and an exchange.</li>
+</ul>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../4.%20SDK/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../4.%20SDK/" class="btn btn-xs btn-link">
+        4. SDK
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../2.Web%20hooks%20and%20Polling/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../2.Web%20hooks%20and%20Polling/" class="btn btn-xs btn-link">
+        2.Web hooks and Polling
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

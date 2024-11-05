@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>ETag - digitalbabushka learning</title>
+    <link href="../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+        ];
+
+    </script>
+    <script src="../../../../js/base.js"></script>
+      <script src="../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../JSON/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../JSON/" class="btn btn-xs btn-link">
+        JSON
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../%28A%29Sync/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../%28A%29Sync/" class="btn btn-xs btn-link">
+        (A)Sync
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>An <strong>ETag</strong> (Entity Tag) is a unique identifier assigned by a web server to a specific version of a resource, typically used for caching and conditional requests. When a resource (like a webpage, image, or file) is served, the server generates an ETag and sends it in the <code>ETag</code> header of the response.</p>
+<p>If the client caches the resource, it also stores the ETag. When the client later requests the same resource, it can include the <code>If-None-Match</code> header with the ETag value. This tells the server to return the resource only if it has changed (i.e., if the ETag doesn't match). If the resource is unchanged, the server responds with a <code>304 Not Modified</code> status, allowing the client to use its cached version, which saves bandwidth and reduces load times</p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../JSON/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../JSON/" class="btn btn-xs btn-link">
+        JSON
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../%28A%29Sync/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../%28A%29Sync/" class="btn btn-xs btn-link">
+        (A)Sync
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>
