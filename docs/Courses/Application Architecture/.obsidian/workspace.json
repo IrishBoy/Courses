@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "1. Distributed Architecture/2.Logic Separation/2.SOA.md",
+                "file": "Additional materials/PCI DSS.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2.SOA"
+              "title": "PCI DSS"
             }
           },
           {
@@ -27,15 +27,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "1. Distributed Architecture/99.Additional Materials/1. Cohesion and Coupeling.md",
+                "file": "Additional materials/PCI DSS.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "1. Cohesion and Coupeling"
+              "title": "PCI DSS"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -183,11 +184,14 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "474a065b795169b4",
+  "active": "808fd1ec2f2d3710",
   "lastOpenFiles": [
+    "Files/Pasted image 20241105080741.png",
+    "1. Distributed Architecture/2.Logic Separation/2.SOA.md",
+    "1. Distributed Architecture/99.Additional Materials/1. Cohesion and Coupeling.md",
+    "Additional materials/PCI DSS.md",
     "Files/Pasted image 20241105074530.png",
     "1. Distributed Architecture/2.Logic Separation/1.Monolith.md",
-    "1. Distributed Architecture/2.Logic Separation/2.SOA.md",
     "1. Distributed Architecture/1.Integrations/1.Basic Part/0. Request Response.md",
     "Introduction.md",
     "1. Distributed Architecture/1.Integrations/5.Extra materials/0. Extra Materials.md",
@@ -199,7 +203,6 @@
     "Files/Pasted image 20241024163333.png",
     "2.Data/999.Additional info/ACID.md",
     "2.Data/999.Additional info/Persistant Data.md",
-    "1. Distributed Architecture/99.Additional Materials/1. Cohesion and Coupeling.md",
     "1. Distributed Architecture/2.Logic Separation/4.EDA.md",
     "2.Data/1.Database Types/0. 12 Database types.md",
     "1. Distributed Architecture/4.Authorisation/0. Authentication vs Authorisation.md",
@@ -224,10 +227,8 @@
     "7.Languages/Frontend",
     "7.Languages/Backend",
     "7.Languages",
-    "Additional materials/Raft protocol.md",
     "1. Distributed Architecture/1.Integrations/4.Cases",
     "Files/restvsgrpc.png",
-    "Files/Pasted image 20241017144631.png",
-    "Files/Pasted image 20241017144604.png"
+    "Files/Pasted image 20241017144631.png"
   ]
 }
