@@ -3,7 +3,7 @@ The Payment Card Industry Data Security Standard (PCI DSS) is a set of security 
 What does consist of ? Well, it is a set of rules that guide companies through the storing and using personal financial data
 
 - **Building and maintaining secure networks**
-    - firewall configuration and not using vendor-supplied defaults
+	- firewall configuration and not using vendor-supplied defaults
 - **Protecting cardholder data**
     - encryption (of the server or storage) and secure storage practices
 - **Maintaining a vulnerability management program**
