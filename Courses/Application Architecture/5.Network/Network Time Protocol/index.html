@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Network Time Protocol - digitalbabushka learning</title>
+    <link href="../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "How Does NTP Keep Time?", url: "#_top", children: [
+          ]},
+          {title: "Stratum Levels \u2013 The Time Pyramid", url: "#stratum-levels-the-time-pyramid", children: [
+          ]},
+          {title: "NTPv4 \u2013 The Latest and Greatest", url: "#ntpv4-the-latest-and-greatest", children: [
+          ]},
+          {title: "How Do Devices Get the Time?", url: "#how-do-devices-get-the-time", children: [
+          ]},
+          {title: "What About SNTP?", url: "#what-about-sntp", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../../../js/base.js"></script>
+      <script src="../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../OSI%20Model/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../OSI%20Model/" class="btn btn-xs btn-link">
+        OSI Model
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../Firewall/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../Firewall/" class="btn btn-xs btn-link">
+        Firewall
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p><strong>Let’s Talk About NTP (Network Time Protocol)</strong><br />
+Ever wondered how computers stay in sync with time? That’s where NTP comes in. It’s one of the internet’s oldest tricks, created way back in 1981 by David Mills, a professor at the University of Delaware. It’s super reliable, scalable, and gets the job done when it comes to time synchronization.</p>
+<h3 id="how-does-ntp-keep-time"><strong>How Does NTP Keep Time?</strong><a class="headerlink" href="#how-does-ntp-keep-time" title="Permanent link">&para;</a></h3>
+<p>Here’s the gist of it:</p>
+<ol>
+<li>Your device (the client) sends a time request to a time server.</li>
+<li>The server sends back the time, and the client adjusts its clock accordingly.</li>
+<li>This happens a few times (like six exchanges over 10 minutes) to lock in the right time.</li>
+</ol>
+<p>Once that’s done, your device checks in every 10 minutes or so to stay accurate. The magic happens over UDP (User Datagram Protocol) using port 123. NTP even allows multiple devices to sync up through broadcasts.</p>
+<h3 id="stratum-levels-the-time-pyramid"><strong>Stratum Levels – The Time Pyramid</strong><a class="headerlink" href="#stratum-levels-the-time-pyramid" title="Permanent link">&para;</a></h3>
+<p>Think of time syncing as a hierarchy, starting with the most accurate source:</p>
+<ul>
+<li><strong>Stratum 0:</strong> These are the “time gods” like atomic clocks or GPS systems.</li>
+<li><strong>Stratum 1:</strong> Devices directly connected to Stratum 0 clocks.</li>
+<li><strong>Stratum 2:</strong> Devices that get their time from Stratum 1.</li>
+<li><strong>Stratum 3:</strong> You guessed it—these sync from Stratum 2.</li>
+</ul>
+<p>The farther you go down the pyramid, the less accurate the time.
+<img alt="Network Time Protocol.png" src="../../Files/Network%20Time%20Protocol.png" /></p>
+<h3 id="ntpv4-the-latest-and-greatest"><strong>NTPv4 – The Latest and Greatest</strong><a class="headerlink" href="#ntpv4-the-latest-and-greatest" title="Permanent link">&para;</a></h3>
+<p>The newest version, NTPv4, is super cool. It works with both IPv4 and IPv6, is backward-compatible with older versions, and is super accurate (down to a few microseconds). Plus, it has a nifty feature to find time servers automatically.</p>
+<h3 id="how-do-devices-get-the-time"><strong>How Do Devices Get the Time?</strong><a class="headerlink" href="#how-do-devices-get-the-time" title="Permanent link">&para;</a></h3>
+<p>There are two main ways devices sync up:</p>
+<ul>
+<li><strong>Polling:</strong> Devices ask specific servers for the correct time. This is super accurate and reliable.</li>
+<li><strong>Broadcasting:</strong> Servers shout out the time to everyone listening. This method is quicker but not as precise.</li>
+</ul>
+<h3 id="what-about-sntp"><strong>What About SNTP?</strong><a class="headerlink" href="#what-about-sntp" title="Permanent link">&para;</a></h3>
+<p>If full-blown NTP feels like overkill, there’s SNTP (Simple Network Time Protocol). It’s a lightweight version designed for less powerful devices that don’t need super precise time.</p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../OSI%20Model/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../OSI%20Model/" class="btn btn-xs btn-link">
+        OSI Model
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../Firewall/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../Firewall/" class="btn btn-xs btn-link">
+        Firewall
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

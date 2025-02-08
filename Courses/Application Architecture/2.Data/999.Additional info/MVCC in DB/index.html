@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>MVCC in DB - digitalbabushka learning</title>
+    <link href="../../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Key differences between MVCC and traditional locking", url: "#_top", children: [
+          ]},
+          {title: "Drawbacks of MVCC", url: "#drawbacks-of-mvcc", children: [
+          ]},
+          {title: "Advantages of forkless background saving", url: "#advantages-of-forkless-background-saving", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../../../../js/base.js"></script>
+      <script src="../../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../Persistent%20Data/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../Persistent%20Data/" class="btn btn-xs btn-link">
+        Persistent Data
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../Data%20Consistency/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../Data%20Consistency/" class="btn btn-xs btn-link">
+        Data Consistency
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>Multiversion concurrency control (MVCC) provides a method for enabling simultaneous access to a database. Instead of overwriting data during updates or transactions, MVCC creates a new version or snapshot of the data. This allows only the initiating transaction to see the modified data until the changes are finalized. Meanwhile, other operations continue accessing the earlier snapshot. When older versions are no longer in use, they are automatically discarded.</p>
+<p>By retaining multiple data versions, MVCC ensures non-blocking operations, even in scenarios with heavy queries, scripts, or transactions. This approach enhances isolation and functionality compared to traditional systems and offers significantly better concurrency than two-phase locking.</p>
+<hr />
+<h1 id="key-differences-between-mvcc-and-traditional-locking"><strong>Key differences between MVCC and traditional locking</strong><a class="headerlink" href="#key-differences-between-mvcc-and-traditional-locking" title="Permanent link">&para;</a></h1>
+<p>Rather than locking records during updates, MVCC generates a new version with an incremented identifier. Other operations can access the previous version without contention or deadlock risks. Once updates are finalized, future reads access the updated version, and the cycle repeats for subsequent modifications.</p>
+<hr />
+<h1 id="drawbacks-of-mvcc"><strong>Drawbacks of MVCC</strong><a class="headerlink" href="#drawbacks-of-mvcc" title="Permanent link">&para;</a></h1>
+<ol>
+<li>Implementation complexity: Managing multiple versions of data requires intricate control methods.</li>
+<li>Data bloat: Maintaining multiple snapshots increases database size and can lead to inefficiencies.</li>
+</ol>
+<hr />
+<h1 id="advantages-of-forkless-background-saving"><strong>Advantages of forkless background saving</strong><a class="headerlink" href="#advantages-of-forkless-background-saving" title="Permanent link">&para;</a></h1>
+<p>One of the features enabled by MVCC is forkless background saving, which optimizes memory usage during save operations.</p>
+<p>Traditional snapshotting using the <code>fork()</code> system call can cause write amplification, where even small changes result in duplication of entire memory pages. Additionally, sufficient free memory must be reserved to accommodate ongoing writes, and inadequate memory can lead to failures.</p>
+<p>Forkless background saving minimizes these issues by avoiding such duplications, reducing the memory required for saving, and delivering consistent performance regardless of the size of the data being saved. This approach is particularly advantageous as database sizes and value complexities increase, making it faster and more memory-efficient.</p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../Persistent%20Data/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../Persistent%20Data/" class="btn btn-xs btn-link">
+        Persistent Data
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../Data%20Consistency/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../Data%20Consistency/" class="btn btn-xs btn-link">
+        Data Consistency
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

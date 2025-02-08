@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>1.Monolith - digitalbabushka learning</title>
+    <link href="../../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+        ];
+
+    </script>
+    <script src="../../../../../js/base.js"></script>
+      <script src="../../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../2.SOA/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../2.SOA/" class="btn btn-xs btn-link">
+        2.SOA
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../0.Introduction/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../0.Introduction/" class="btn btn-xs btn-link">
+        0.Introduction
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>When you start creating any application, you should not make it difficult. You need to make it work right now, so you start writing code put everything into one application. </p>
+<p>Bravo !</p>
+<p>You have just created a Monolithic Architecture.</p>
+<p>How?</p>
+<p>Well, before going deeper into monolith let's define what is it ?</p>
+<p><img alt="Monolith.png" src="../../../Files/Monolith.png" /></p>
+<p>The most basic and strict characteristics of a monolith architecture may be squeezed down to the following points
+- Single executable program
+- Single instance
+- One database (we talk about one database of each <a href="../../../2.Data/1.Database%20Types/0.%2012%20Database%20types/">type</a>)
+- Unified Build and Deployment
+- Communication within application</p>
+<p>Is it a good or a bad approach?</p>
+<p>This question is not right. Each approach has its own pros and cons, so let's list them</p>
+<table>
+<thead>
+<tr>
+<th><center>Advantages</center></th>
+<th><center>Disadvantages</center></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><center><strong>The simplicity of starting to develop</strong></center><br>Undoubtedly, it is easy to create a couple of classes with an array of functions in each that complete some uncomplicated operations.<br></td>
+<td><center><strong>Hard to support</strong></center><br>If the error is not a simple one like “line 147 pages.py method length() is not callable”, but anything more complicated, it is almost impossible to find the right place, where error occurred. Moreover, when a program does not fail, but just gives wrong results, you may face a vast array of difficulties trying to figure out part of the system, where it started to fail as everything is messed up and tightly coupled</td>
+</tr>
+<tr>
+<td><center><strong>The easiness of testing</strong></center><br><center>Besides being the «first» architecture design, it is without any doubt the one that provides the simplest way of testing, especially e2e testing as the only thing that is required is to run the program</center></td>
+<td><center><strong>Whole system redeployment</strong></center><br>As a monolithic application is to be redeployed wholly, when one part fails or a new release is coming out, such a routine may drive a lot of people mad, and at the same time it has a severe effect on developing and down time</td>
+</tr>
+<tr>
+<td><center><strong>No difficulties in deployment</strong></center><br><center>Almost always in such types of applications the only necessary thing is to write commands “yarn start” or “python file.py” without any other parameters to configure.</center></td>
+<td><center><center><strong>Parallel work is challenging</strong></center><br> As the system is tightly coupled, hardly can anyone argue that one part can be changed while the other is not finished, which makes projects/products that are based on this architecture design very slow and not let them use agile methodologies<center></center></center></td>
+</tr>
+</tbody>
+</table>
+<p>Moreover, when we talk about architecture and programming, it is vital to get into understanding two following things</p>
+<p><a href="../../99.Additional%20Materials/1.%20Cohesion%20and%20Coupeling/">Cohesion and Coupling</a></p>
+<p>Why?</p>
+<p>Because usually bad monoliths are ones that have low cohesion, which led at some moment to appearing of new architecture styles that we will discuss in the following parts.</p>
+<p>For now we will stop here, however, later in more detailed version (so, when I have time), we will dive deeper into monolith and its types</p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../2.SOA/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../2.SOA/" class="btn btn-xs btn-link">
+        2.SOA
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../0.Introduction/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../0.Introduction/" class="btn btn-xs btn-link">
+        0.Introduction
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

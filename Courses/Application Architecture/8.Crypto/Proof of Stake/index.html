@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Proof of Stake - digitalbabushka learning</title>
+    <link href="../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Proof of Stake (PoS)", url: "#_top", children: [
+          ]},
+          {title: "Delegated Proof of Stake (DPoS)", url: "#delegated-proof-of-stake-dpos", children: [
+          ]},
+          {title: "How Does Staking Work?", url: "#how-does-staking-work", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../../../js/base.js"></script>
+      <script src="../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../9.Security/999.Additional%20Info/1.CSRF%20Attack/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../9.Security/999.Additional%20Info/1.CSRF%20Attack/" class="btn btn-xs btn-link">
+        1.CSRF Attack
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../5.Network/Protocols/TCP/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../5.Network/Protocols/TCP/" class="btn btn-xs btn-link">
+        TCP
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h3 id="proof-of-stake-pos"><strong>Proof of Stake (PoS)</strong><a class="headerlink" href="#proof-of-stake-pos" title="Permanent link">&para;</a></h3>
+<p>The <strong>Proof of Stake (PoS)</strong> mechanism is considered a more environmentally sustainable alternative to Proof of Work (PoW) networks. Unlike PoW, where miners compete to solve complex mathematical puzzles to validate transactions and earn rewards, PoS selects validators in a different manner. Validators are chosen based on the number of tokens they have <em>staked</em>—or locked—within the network. The selection process, while random, is often influenced by the quantity of tokens staked and the duration for which they are held.</p>
+<p>In a PoS system, participants lock their tokens into the network through a <strong>smart contract</strong> to serve as validators. Validators play a crucial role in maintaining the integrity of the blockchain: ensuring the network remains functional, secure, and free from manipulation. Because these tokens are locked into the system—often the network’s native cryptocurrency—they essentially act as collateral. This process bears some resemblance to a time deposit in traditional banking, where funds are locked for a period in exchange for interest. In PoS, however, participants earn rewards, generating a return on their staked assets while contributing to the stability of the network.</p>
+<h3 id="delegated-proof-of-stake-dpos"><strong>Delegated Proof of Stake (DPoS)</strong><a class="headerlink" href="#delegated-proof-of-stake-dpos" title="Permanent link">&para;</a></h3>
+<p>The <strong>Delegated Proof of Stake (DPoS)</strong> model builds on the principles of PoS but introduces additional democratic measures to address issues of accessibility and fairness. In many standard PoS networks, participants with large token holdings have higher odds of being selected as validators. DPoS aims to counterbalance this by giving smaller stakeholders a voice through a voting process.</p>
+<p>In a DPoS system, all network participants hold voting rights proportional to their token holdings. Rather than directly selecting validators, participants elect representatives, often referred to as <strong>delegates</strong> or <strong>witnesses</strong>. These witnesses are tasked with validating transactions and adding new blocks to the blockchain. Delegates, on the other hand, are responsible for overseeing the network, maintaining its security, proposing changes, and guiding governance processes. This structure introduces a layer of accountability while ensuring that even smaller stakeholders can influence the network’s operation.</p>
+<h3 id="how-does-staking-work"><strong>How Does Staking Work?</strong><a class="headerlink" href="#how-does-staking-work" title="Permanent link">&para;</a></h3>
+<p>To become a validator within a PoS network, participants must configure their systems, maintain up-to-date software, and ensure their setup is secure. When the network identifies a block of transactions ready for processing, it selects a validator at random using an algorithm. However, the selection process is not entirely arbitrary—validators with larger staked amounts and longer staking durations typically have a higher probability of being chosen.</p>
+<p>Validators, by staking their assets, demonstrate a vested interest in the network’s success. In return for their role, they receive rewards in the form of additional tokens. This system incentivizes validators to act in the network’s best interest, as any malicious behavior could result in a loss of their staked funds.</p>
+<p>That said, PoS systems are not without drawbacks. A significant limitation is the steep entry barrier for many would-be validators. Participating often requires staking a substantial number of tokens, effectively limiting participation to individuals or entities with considerable holdings. As a result, networks may face issues of centralization, with larger stakeholders disproportionately influencing the validation process.<img alt="Proof of Stake.png" src="../../Files/Proof%20of%20Stake.png" /></p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../9.Security/999.Additional%20Info/1.CSRF%20Attack/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../9.Security/999.Additional%20Info/1.CSRF%20Attack/" class="btn btn-xs btn-link">
+        1.CSRF Attack
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../5.Network/Protocols/TCP/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../5.Network/Protocols/TCP/" class="btn btn-xs btn-link">
+        TCP
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

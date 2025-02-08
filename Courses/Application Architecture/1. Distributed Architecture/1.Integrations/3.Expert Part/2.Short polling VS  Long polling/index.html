@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>2.Short polling VS  Long polling - digitalbabushka learning</title>
+    <link href="../../../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Short Polling", url: "#_top", children: [
+          ]},
+          {title: "Long polling:", url: "#long-polling", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../../../../../js/base.js"></script>
+      <script src="../../../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../3.Apache%20Thrift/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../3.Apache%20Thrift/" class="btn btn-xs btn-link">
+        3.Apache Thrift
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../1.RedPanda/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../1.RedPanda/" class="btn btn-xs btn-link">
+        1.RedPanda
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h2 id="short-polling">Short Polling<a class="headerlink" href="#short-polling" title="Permanent link">&para;</a></h2>
+<p><strong>What is Short Polling?</strong><br />
+Short polling works like periodic check-ins between a web browser and a server. It's similar to texting a friend and repeatedly asking, "Any updates?"</p>
+<p><strong>When to Use Short Polling?</strong><br />
+Short polling is best for situations where immediate updates aren't essential. For example, apps that refresh data periodically, like weather apps, can benefit from short polling.
+<img alt="Short Polling.png" src="../../../../Files/Short%20Polling.png" /></p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li><strong>Simplicity:</strong> Short polling is easy to implement, making it suitable for a variety of applications.</li>
+<li><strong>Compatibility:</strong> It functions well with most server environments and doesn’t need complex configurations.</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li><strong>Excessive Requests:</strong> Regular, frequent requests can cause unnecessary server load and increase network traffic.</li>
+<li><strong>Latency:</strong> Since updates are only fetched during polling intervals, it can lead to delays in receiving new information.</li>
+</ul>
+<h2 id="long-polling">Long polling:<a class="headerlink" href="#long-polling" title="Permanent link">&para;</a></h2>
+<p><strong>What is Long Polling?</strong><br />
+Long polling is like keeping an open conversation between the browser and server, where the server waits to respond until there's new information to share, reducing the need for constant check-ins.</p>
+<p><strong>When to Use Long Polling?</strong><br />
+Long polling is ideal for scenarios where real-time updates are important, but you want to avoid excessive requests. It works well for applications like messaging apps, where you need immediate updates without repeatedly asking, "Any new messages?"</p>
+<p><img alt="Long Polling.png" src="../../../../Files/Long%20Polling.png" /><strong>Advantages:</strong></p>
+<ul>
+<li><strong>Reduced Requests:</strong> The server keeps the connection open until new data is available, cutting down on unnecessary requests.</li>
+<li><strong>Near Real-Time Updates:</strong> Long polling delivers updates faster than short polling, offering a more responsive user experience.</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li><strong>Resource Intensive:</strong> Holding long-lived connections can put a strain on server resources, particularly if the system isn't optimized for it.</li>
+<li><strong>Connection Loss Latency:</strong> If the connection drops, there can be delays in re-establishing it, affecting the user experience.</li>
+</ul>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../3.Apache%20Thrift/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../3.Apache%20Thrift/" class="btn btn-xs btn-link">
+        3.Apache Thrift
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../1.RedPanda/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../1.RedPanda/" class="btn btn-xs btn-link">
+        1.RedPanda
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

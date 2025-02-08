@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>4.Pub sub vs message queue - digitalbabushka learning</title>
+    <link href="../../../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+        ];
+
+    </script>
+    <script src="../../../../../../js/base.js"></script>
+      <script src="../../../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../5.kafka/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../5.kafka/" class="btn btn-xs btn-link">
+        5.kafka
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../3.graphQL/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../3.graphQL/" class="btn btn-xs btn-link">
+        3.graphQL
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>Queues and pub/sub are another way of communication between applications.</p>
+<p>Imagine some sort of jar, someone puts there a paper with text, then another person comes and takes it. <br />
+So, this is the main idea of queues, publisher puts some message into the queue, then subscriber reads it. Without any doubt we can configure the whole process according to the following parameters </p>
+<ul>
+<li>How many times message could be read</li>
+<li>Who can publish messages</li>
+<li>Whether the messages should be logged </li>
+<li>etc</li>
+<li>But for now it is not that important</li>
+</ul>
+<p>so, what's the difference?</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Message Queue (MQ)</th>
+<th>Publisher-Subscriber (Pub-Sub)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Concept of Message</strong></td>
+<td>Messages generally have a specific destination.</td>
+<td>Messages, also known as <code>events</code>, are sent to multiple subscribers.</td>
+</tr>
+<tr>
+<td><strong>Message Delivery</strong></td>
+<td>Messages are delivered to one consumer.</td>
+<td>Messages are delivered to all subscribers.</td>
+</tr>
+<tr>
+<td><strong>Event Retry</strong></td>
+<td>Support exists, with the use of a <code>dead letter queue</code>.</td>
+<td>Depends on the queue implemented under the hood.</td>
+</tr>
+<tr>
+<td><strong>Memory</strong></td>
+<td>Requires significant amount of memory.</td>
+<td>Requires less memory as messages are discarded post distribution.</td>
+</tr>
+<tr>
+<td><strong>Reliability</strong></td>
+<td>Higher, thanks to the acknowledgement concept.</td>
+<td>Lower, due to lack of acknowledgment.</td>
+</tr>
+<tr>
+<td><strong>Throughput</strong></td>
+<td>Lower, due to the processing of a single message at a time.</td>
+<td>Higher, as multiple messages can be processed parallelly.</td>
+</tr>
+<tr>
+<td><strong>Common Usage</strong></td>
+<td>Task distribution, load balancing.</td>
+<td>Multi-casting events, data streaming.</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Pasted image 20241017144604.png" src="../../../../Files/Pasted%20image%2020241017144604.png" /></p>
+<p><img alt="Pasted image 20241017144616.png" src="../../../../Files/Pasted%20image%2020241017144616.png" /></p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../5.kafka/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../5.kafka/" class="btn btn-xs btn-link">
+        5.kafka
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../3.graphQL/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../3.graphQL/" class="btn btn-xs btn-link">
+        3.graphQL
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

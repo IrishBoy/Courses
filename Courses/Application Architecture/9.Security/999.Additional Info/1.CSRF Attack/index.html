@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>1.CSRF Attack - digitalbabushka learning</title>
+    <link href="../../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "How CSRF Works", url: "#_top", children: [
+              {title: "Scenario: Online Banking Website", url: "#scenario-online-banking-website" },
+          ]},
+          {title: "Step-by-Step Attack Execution", url: "#step-by-step-attack-execution", children: [
+              {title: "Step 1: Victim Logs into Their Bank Account", url: "#step-1-victim-logs-into-their-bank-account" },
+              {title: "Step 2: Attacker Prepares a Malicious Website", url: "#step-2-attacker-prepares-a-malicious-website" },
+              {title: "Step 3: Victim Clicks the Malicious Link", url: "#step-3-victim-clicks-the-malicious-link" },
+              {title: "Step 4: The Bank Processes the Request", url: "#step-4-the-bank-processes-the-request" },
+          ]},
+          {title: "Variations of CSRF Attacks", url: "#variations-of-csrf-attacks", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../../../../js/base.js"></script>
+      <script src="../../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../../Additional%20materials/%28A%29Sync/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../../Additional%20materials/%28A%29Sync/" class="btn btn-xs btn-link">
+        (A)Sync
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../../8.Crypto/Proof%20of%20Stake/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../../8.Crypto/Proof%20of%20Stake/" class="btn btn-xs btn-link">
+        Proof of Stake
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>A <strong>CSRF attack</strong> tricks an authenticated user into making unwanted actions on a web application without their consent. It exploits the trust that a website has in the user's browser.</p>
+<h3 id="how-csrf-works"><strong>How CSRF Works</strong><a class="headerlink" href="#how-csrf-works" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Victim logs into a legitimate website</strong> (e.g., a banking site).</li>
+<li>The victim's browser <strong>stores an active session (cookie)</strong> for that site.</li>
+<li>The attacker <strong>tricks the victim</strong> into clicking a malicious link or visiting a page that sends an <strong>unauthorized request</strong> to the legitimate site.</li>
+<li>The request <strong>automatically includes the victim’s session cookies</strong>, making it appear as if the request is from the victim.</li>
+<li>The <strong>server processes the request</strong> because it sees a valid session, leading to actions like <strong>changing passwords, transferring money, or deleting accounts</strong>.</li>
+</ol>
+<h4 id="scenario-online-banking-website"><strong>Scenario: Online Banking Website</strong><a class="headerlink" href="#scenario-online-banking-website" title="Permanent link">&para;</a></h4>
+<p>Imagine you are logged into <strong>YourBank.com</strong> and the site allows money transfers via a simple HTTP request:</p>
+<div class="highlight"><pre><span></span><code>POST<span class="w"> </span>
+https://yourbank.com/transfer<span class="w"> </span>Content-Type:<span class="w"> </span>application/x-www-form-urlencoded<span class="w">  </span><span class="nv">amount</span><span class="o">=</span><span class="m">1000</span><span class="p">&amp;</span><span class="nv">to</span><span class="o">=</span>attacker_account<span class="sb">`</span>
+</code></pre></div>
+<p>Your session is authenticated using a <strong>cookie</strong> that is automatically included in every request you make.</p>
+<hr />
+<h3 id="step-by-step-attack-execution"><strong>Step-by-Step Attack Execution</strong><a class="headerlink" href="#step-by-step-attack-execution" title="Permanent link">&para;</a></h3>
+<h4 id="step-1-victim-logs-into-their-bank-account"><strong>Step 1: Victim Logs into Their Bank Account</strong><a class="headerlink" href="#step-1-victim-logs-into-their-bank-account" title="Permanent link">&para;</a></h4>
+<ul>
+<li>You visit <strong>YourBank.com</strong>, enter your username and password, and successfully log in.</li>
+<li>The site sets a <strong>session cookie</strong> in your browser (<code>session_id=xyz123</code>).</li>
+<li>Now, any request to <strong>YourBank.com</strong> is automatically authenticated using this cookie.</li>
+</ul>
+<h4 id="step-2-attacker-prepares-a-malicious-website"><strong>Step 2: Attacker Prepares a Malicious Website</strong><a class="headerlink" href="#step-2-attacker-prepares-a-malicious-website" title="Permanent link">&para;</a></h4>
+<ul>
+<li>The attacker creates a website (<strong>evil.com</strong>) with an embedded malicious request.</li>
+<li>The site includes an <strong>invisible auto-submitting form</strong>:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>     <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Win a Free iPhone! Click Below:<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>    
+ <span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;https://yourbank.com/transfer&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;POST&quot;</span><span class="p">&gt;</span>       
+ <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;amount&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;1000&quot;</span><span class="p">&gt;</span> 
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;to&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;attacker_account&quot;</span><span class="p">&gt;</span> 
+- <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;Click to Claim Prize&quot;</span><span class="p">&gt;</span>
+- <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+- <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>OR the attacker may use JavaScript to <strong>auto-submit</strong> the form when the page loads:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">body</span> <span class="na">onload</span><span class="o">=</span><span class="s">&quot;document.forms[0].submit()&quot;</span><span class="p">&gt;</span>   
+<span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;https://yourbank.com/transfer&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;POST&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;amount&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;1000&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;to&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;attacker_account&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>`
+</code></pre></div>
+<hr />
+<h4 id="step-3-victim-clicks-the-malicious-link"><strong>Step 3: Victim Clicks the Malicious Link</strong><a class="headerlink" href="#step-3-victim-clicks-the-malicious-link" title="Permanent link">&para;</a></h4>
+<ul>
+<li>You receive a phishing email or see an ad promising a free iPhone.</li>
+<li>You visit <strong>evil.com</strong>.</li>
+<li>The page <strong>automatically submits the hidden form</strong> to <strong>YourBank.com</strong>.</li>
+<li>Since your browser is still logged into YourBank.com, <strong>it automatically includes the session cookie (<code>session_id=xyz123</code>) in the request</strong>.</li>
+</ul>
+<hr />
+<h4 id="step-4-the-bank-processes-the-request"><strong>Step 4: The Bank Processes the Request</strong><a class="headerlink" href="#step-4-the-bank-processes-the-request" title="Permanent link">&para;</a></h4>
+<ul>
+<li>YourBank.com <strong>sees a valid request with an authenticated session</strong>.</li>
+<li>The bank transfers <strong>$1,000 to the attacker's account</strong> because it believes the request came from you.</li>
+<li><strong>You lose money without even knowing it happened.</strong></li>
+</ul>
+<hr />
+<h3 id="variations-of-csrf-attacks"><strong>Variations of CSRF Attacks</strong><a class="headerlink" href="#variations-of-csrf-attacks" title="Permanent link">&para;</a></h3>
+<p>CSRF attacks are not limited to bank transfers. Attackers can exploit any action that requires authentication:</p>
+<ol>
+<li>
+<p><strong>Change Email or Password</strong></p>
+<ul>
+<li>
+<p>If a site allows email/password changes via a simple request:
+<div class="highlight"><pre><span></span><code>POST<span class="w"> </span>https://example.com/change_email<span class="w"> </span>
+Content-Type:<span class="w"> </span>application/x-www-form-urlencoded<span class="w">  </span>
+
+<span class="nv">email</span><span class="o">=</span>attacker@gmail.com<span class="w">  </span>
+</code></pre></div></p>
+</li>
+<li>
+<p>An attacker can force a victim to change their email to <strong>attacker@gmail.com</strong>, locking them out.</p>
+</li>
+<li><strong>Delete Account</strong></li>
+</ul>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="w">   </span>GET<span class="w"> </span>https://example.com/delete_account<span class="w"> </span>
+</code></pre></div>
+<pre><code>- If a website **doesn't require extra verification**, a CSRF attack can delete a user’s account.
+</code></pre>
+<ol>
+<li><strong>Purchase Items (E-Commerce Sites)</strong></li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="w">   </span>POST<span class="w"> </span>https://shop.com/buy<span class="w"> </span>Content-Type:<span class="w"> </span>application/x-www-form-urlencoded<span class="w">  </span><span class="nv">product_id</span><span class="o">=</span><span class="m">123</span><span class="p">&amp;</span><span class="nv">quantity</span><span class="o">=</span><span class="m">10</span>
+</code></pre></div>
+<pre><code>- The attacker can trick a victim into unknowingly buying expensive products.
+</code></pre>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../../Additional%20materials/%28A%29Sync/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../../Additional%20materials/%28A%29Sync/" class="btn btn-xs btn-link">
+        (A)Sync
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../../8.Crypto/Proof%20of%20Stake/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../../8.Crypto/Proof%20of%20Stake/" class="btn btn-xs btn-link">
+        Proof of Stake
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

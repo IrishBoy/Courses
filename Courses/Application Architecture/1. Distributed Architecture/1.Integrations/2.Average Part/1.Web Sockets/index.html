@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>1.Web Sockets - digitalbabushka learning</title>
+    <link href="../../../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+        ];
+
+    </script>
+    <script src="../../../../../../js/base.js"></script>
+      <script src="../../../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../2.Web%20hooks%20and%20Polling/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../2.Web%20hooks%20and%20Polling/" class="btn btn-xs btn-link">
+        2.Web hooks and Polling
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../1.Basic%20Part/5.kafka/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../1.Basic%20Part/5.kafka/" class="btn btn-xs btn-link">
+        5.kafka
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>So, what if you want to have bidirectional connection since you need lower latency ?
+Well, then you need web sockets
+Within this approach <a href="../../../../5.Network/Protocols/TCP/">TCP</a> is used and connection is up until client or server shuts it down.</p>
+<p><strong>Step 1. The client initiates an <a href="../../../../5.Network/Protocols/HTTP/">HTTP</a> connection.</strong></p>
+<p><strong>Step 2. WebSocket establishes a handshake between the client and server that makes WebSocket compatible with  <a href="../../../../5.Network/Protocols/HTTP/">HTTP</a> ports (80 and 443) and proxies.</strong></p>
+<p><strong>Step 3. Both the client and server exchange messages freely via an open, persistent connection that doesn’t require continuous polling or new  <a href="../../../../5.Network/Protocols/HTTP/">HTTP</a> requests.</strong></p>
+<p><strong>Step 4. The connection remains open until one side closes the channel, at which point the connection closes and the client-server engagement ends.</strong></p>
+<p>It is easy to understand pros but what are cons?</p>
+<ul>
+<li><strong>Increased Complexity</strong></li>
+<li><strong>Resource Consumption</strong></li>
+<li><strong><a href="../../../../5.Network/Firewall/">Firewall</a> and <a href="../../../../5.Network/Proxy/">Proxy</a> Issues</strong></li>
+<li><strong>Security Concerns</strong></li>
+<li><strong>Lack of Built-in Retry Mechanism</strong></li>
+<li><strong>Incompatible with <a href="../../1.Basic%20Part/1.REST/"> REST</a> APIs</strong></li>
+<li><strong>Monitoring and Debugging complexity</strong></li>
+<li><strong>No Native Support for Caching</strong></li>
+</ul>
+<p><img alt="Websockets.png" src="../../../../Files/Websockets.png" /></p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../2.Web%20hooks%20and%20Polling/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../2.Web%20hooks%20and%20Polling/" class="btn btn-xs btn-link">
+        2.Web hooks and Polling
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../1.Basic%20Part/5.kafka/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../1.Basic%20Part/5.kafka/" class="btn btn-xs btn-link">
+        5.kafka
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

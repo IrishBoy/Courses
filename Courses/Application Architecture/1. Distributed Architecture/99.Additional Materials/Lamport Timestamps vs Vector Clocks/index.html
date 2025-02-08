@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Lamport Timestamps vs Vector Clocks - digitalbabushka learning</title>
+    <link href="../../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "1. Lamport Timestamps", url: "#_top", children: [
+          ]},
+          {title: "2. Vector Clocks", url: "#2-vector-clocks", children: [
+          ]},
+          {title: "Comparison Summary", url: "#comparison-summary", children: [
+          ]},
+          {title: "Example: A Distributed System with Three Processes", url: "#example-a-distributed-system-with-three-processes", children: [
+              {title: "1. Using Lamport Timestamps", url: "#1-using-lamport-timestamps" },
+              {title: "Observations (Lamport Timestamps)", url: "#observations-lamport-timestamps" },
+              {title: "2. Using Vector Clocks", url: "#2-using-vector-clocks" },
+              {title: "Observations (Vector Clocks)", url: "#observations-vector-clocks" },
+          ]},
+          {title: "Key Differences in the Example", url: "#key-differences-in-the-example", children: [
+              {title: "Final Thoughts", url: "#final-thoughts" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../../../../js/base.js"></script>
+      <script src="../../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../../2.Data/Data%20Vault/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../../2.Data/Data%20Vault/" class="btn btn-xs btn-link">
+        Data Vault
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../999.Additional%20Materials/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../999.Additional%20Materials/" class="btn btn-xs btn-link">
+        999.Additional Materials
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>Lamport Timestamps and Vector Clocks are both logical clock mechanisms used in distributed systems to order events, but they serve different purposes and have different properties.</p>
+<h3 id="1-lamport-timestamps"><strong>1. Lamport Timestamps</strong><a class="headerlink" href="#1-lamport-timestamps" title="Permanent link">&para;</a></h3>
+<p><strong>Concept:</strong></p>
+<ul>
+<li>Introduced by Leslie Lamport in 1978, Lamport timestamps provide a way to order events in a distributed system.</li>
+<li>Each process maintains a counter (logical clock), which increments before sending a message.</li>
+<li>When a process receives a message, it updates its counter to be greater than both its current value and the timestamp in the received message.</li>
+</ul>
+<p><strong>Algorithm:</strong></p>
+<ol>
+<li>Each process maintains a counter (<code>L</code>), initialized to 0.</li>
+<li>Before an event (like sending a message), the process increments <code>L</code>.</li>
+<li>When sending a message, it includes <code>L</code> as a timestamp.</li>
+<li>Upon receiving a message, the process updates its counter to <code>max(L_receiver, L_sender + 1)</code>.</li>
+</ol>
+<p><strong>Pros:</strong></p>
+<ul>
+<li>Ensures a partial ordering of events.</li>
+<li>Simple and efficient (single integer per process).</li>
+</ul>
+<p><strong>Cons:</strong></p>
+<ul>
+<li>Cannot determine causal relationships precisely—two events may have the same timestamp but be independent.</li>
+<li>Does not detect concurrency (i.e., whether two events happened simultaneously in different processes).</li>
+</ul>
+<hr />
+<h3 id="2-vector-clocks"><strong>2. Vector Clocks</strong><a class="headerlink" href="#2-vector-clocks" title="Permanent link">&para;</a></h3>
+<p><strong>Concept:</strong></p>
+<ul>
+<li>Vector clocks extend Lamport timestamps to capture causality more precisely.</li>
+<li>Instead of a single counter, each process maintains a vector of counters (one for each process).</li>
+</ul>
+<p><strong>Algorithm:</strong></p>
+<ol>
+<li>Each process maintains a vector clock (<code>V</code>), initialized to <code>[0,0,...,0]</code> (one entry per process).</li>
+<li>Before an event, the process increments its own counter (<code>V[i] += 1</code>).</li>
+<li>When sending a message, the entire vector clock is included.</li>
+<li>Upon receiving a message, the recipient updates its vector clock by taking the element-wise maximum and incrementing its own entry:<ul>
+<li><code>V_receiver[j] = max(V_receiver[j], V_sender[j])</code> for all <code>j</code>.</li>
+<li><code>V_receiver[i] += 1</code> (for its own index).</li>
+</ul>
+</li>
+</ol>
+<p><strong>Pros:</strong></p>
+<ul>
+<li>Captures causality accurately.</li>
+<li>Can determine if two events are concurrent (<code>A || B</code> if neither dominates the other).</li>
+</ul>
+<p><strong>Cons:</strong></p>
+<ul>
+<li>Requires more storage and computation (O(N) space and comparison).</li>
+<li>More complex than Lamport timestamps.</li>
+</ul>
+<hr />
+<h3 id="comparison-summary"><strong>Comparison Summary</strong><a class="headerlink" href="#comparison-summary" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Lamport Timestamps</th>
+<th>Vector Clocks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Order Events</strong></td>
+<td>Yes (partial order)</td>
+<td>Yes (total order if needed)</td>
+</tr>
+<tr>
+<td><strong>Causal Relationship</strong></td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><strong>Concurrency Detection</strong></td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><strong>Storage Complexity</strong></td>
+<td>O(1) per process</td>
+<td>O(N) per process</td>
+</tr>
+<tr>
+<td><strong>Computation Overhead</strong></td>
+<td>Low</td>
+<td>Higher</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="example-a-distributed-system-with-three-processes"><strong>Example: A Distributed System with Three Processes</strong><a class="headerlink" href="#example-a-distributed-system-with-three-processes" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>P1 sends a message to P2.</strong></li>
+<li><strong>P2 sends a message to P3.</strong></li>
+<li><strong>P1 and P3 perform independent events.</strong></li>
+</ul>
+<h3 id="1-using-lamport-timestamps"><strong>1. Using Lamport Timestamps</strong><a class="headerlink" href="#1-using-lamport-timestamps" title="Permanent link">&para;</a></h3>
+<p>Each process maintains a single integer timestamp.</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+<th>P1</th>
+<th>P2</th>
+<th>P3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>E1</strong></td>
+<td>P1 executes an event</td>
+<td><strong>1</strong></td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>E2</strong></td>
+<td>P1 sends a message to P2</td>
+<td><strong>2</strong></td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>E3</strong></td>
+<td>P2 receives message from P1</td>
+<td><strong>2</strong></td>
+<td><strong>3</strong></td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>E4</strong></td>
+<td>P2 sends a message to P3</td>
+<td>2</td>
+<td><strong>4</strong></td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>E5</strong></td>
+<td>P3 receives message from P2</td>
+<td>2</td>
+<td>4</td>
+<td><strong>5</strong></td>
+</tr>
+<tr>
+<td><strong>E6</strong></td>
+<td>P1 executes an independent event</td>
+<td><strong>3</strong></td>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr>
+<td><strong>E7</strong></td>
+<td>P3 executes an independent event</td>
+<td>3</td>
+<td>4</td>
+<td><strong>6</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="observations-lamport-timestamps"><strong>Observations (Lamport Timestamps)</strong><a class="headerlink" href="#observations-lamport-timestamps" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The timestamps <strong>only order events</strong>.</li>
+<li><strong>Causal relationships are not explicit</strong>.<ul>
+<li>E2 (P1 → P2) happened before E3 because 2 &lt; 3.</li>
+<li>However, <strong>E6 (P1's independent event) and E7 (P3's independent event) have no causal link but are still assigned timestamps</strong>.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="2-using-vector-clocks"><strong>2. Using Vector Clocks</strong><a class="headerlink" href="#2-using-vector-clocks" title="Permanent link">&para;</a></h3>
+<p>Each process maintains a <strong>vector clock</strong> <code>[P1, P2, P3]</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+<th>P1</th>
+<th>P2</th>
+<th>P3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>E1</strong></td>
+<td>P1 executes an event</td>
+<td><strong>[1,0,0]</strong></td>
+<td>[0,0,0]</td>
+<td>[0,0,0]</td>
+</tr>
+<tr>
+<td><strong>E2</strong></td>
+<td>P1 sends a message to P2</td>
+<td><strong>[2,0,0]</strong></td>
+<td>[0,0,0]</td>
+<td>[0,0,0]</td>
+</tr>
+<tr>
+<td><strong>E3</strong></td>
+<td>P2 receives message from P1</td>
+<td>[2,0,0]</td>
+<td><strong>[2,1,0]</strong></td>
+<td>[0,0,0]</td>
+</tr>
+<tr>
+<td><strong>E4</strong></td>
+<td>P2 sends a message to P3</td>
+<td>[2,0,0]</td>
+<td><strong>[2,2,0]</strong></td>
+<td>[0,0,0]</td>
+</tr>
+<tr>
+<td><strong>E5</strong></td>
+<td>P3 receives message from P2</td>
+<td>[2,0,0]</td>
+<td>[2,2,0]</td>
+<td><strong>[2,2,1]</strong></td>
+</tr>
+<tr>
+<td><strong>E6</strong></td>
+<td>P1 executes an independent event</td>
+<td><strong>[3,0,0]</strong></td>
+<td>[2,2,0]</td>
+<td>[2,2,1]</td>
+</tr>
+<tr>
+<td><strong>E7</strong></td>
+<td>P3 executes an independent event</td>
+<td>[3,0,0]</td>
+<td>[2,2,0]</td>
+<td><strong>[2,2,2]</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="observations-vector-clocks"><strong>Observations (Vector Clocks)</strong><a class="headerlink" href="#observations-vector-clocks" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Captures causality</strong>:<ul>
+<li>E3 <code>[2,1,0]</code> happens <strong>after</strong> E2 <code>[2,0,0]</code> because <code>2 ≥ 2, 1 &gt; 0, 0 = 0</code>.</li>
+<li>E5 <code>[2,2,1]</code> happens <strong>after</strong> E4 <code>[2,2,0]</code>.</li>
+</ul>
+</li>
+<li><strong>Detects concurrency</strong>:<ul>
+<li>E6 <code>[3,0,0]</code> (P1) and E7 <code>[2,2,2]</code> (P3) <strong>are concurrent</strong> because neither vector is greater than the other.</li>
+<li>This means E6 and E7 <strong>happened independently</strong> without causal relation.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="key-differences-in-the-example"><strong>Key Differences in the Example</strong><a class="headerlink" href="#key-differences-in-the-example" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Lamport Timestamps</th>
+<th>Vector Clocks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Event Ordering</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><strong>Causal Relationships</strong></td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><strong>Concurrency Detection</strong></td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><strong>Storage Cost</strong></td>
+<td>O(1) per process</td>
+<td>O(N) per process</td>
+</tr>
+</tbody>
+</table>
+<h3 id="final-thoughts"><strong>Final Thoughts</strong><a class="headerlink" href="#final-thoughts" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Lamport Timestamps</strong>: When you only need ordering, not causality (e.g., mutual exclusion, distributed snapshots).</li>
+<li><strong>Vector Clocks</strong>: When causal relationships matter (e.g., version control, event tracking in distributed databases).</li>
+</ul>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../../2.Data/Data%20Vault/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../../2.Data/Data%20Vault/" class="btn btn-xs btn-link">
+        Data Vault
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../999.Additional%20Materials/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../999.Additional%20Materials/" class="btn btn-xs btn-link">
+        999.Additional Materials
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

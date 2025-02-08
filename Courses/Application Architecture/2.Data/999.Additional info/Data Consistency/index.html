@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Data Consistency - digitalbabushka learning</title>
+    <link href="../../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Example", url: "#_top", children: [
+          ]},
+          {title: "Tradeoff: Latency vs. Consistency", url: "#tradeoff-latency-vs-consistency", children: [
+          ]},
+          {title: "Ensuring Strong Consistency", url: "#ensuring-strong-consistency", children: [
+          ]},
+          {title: "Common Configurations", url: "#common-configurations", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../../../../js/base.js"></script>
+      <script src="../../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../MVCC%20in%20DB/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../MVCC%20in%20DB/" class="btn btn-xs btn-link">
+        MVCC in DB
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../BLOB/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../BLOB/" class="btn btn-xs btn-link">
+        BLOB
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>In distributed systems, data is replicated across multiple nodes, requiring synchronization to maintain consistency. <strong>Quorum consensus</strong> ensures consistency for both read and write operations by defining specific thresholds for acknowledgments. Let’s clarify some key terms:</p>
+<ul>
+<li><strong>N</strong>: The total number of replicas.</li>
+<li><strong>W</strong>: The write quorum size. A write operation is considered successful only when acknowledgments are received from at least <strong>W</strong> replicas.</li>
+<li><strong>R</strong>: The read quorum size. A read operation is successful when responses are received from at least <strong>R</strong> replicas.</li>
+</ul>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<p><img alt="Data Consistency.svg" src="../../../Files/Data%20Consistency.svg" /></p>
+<p>In the example shown <strong>N = 3</strong> (replicas).</p>
+<ul>
+<li><strong>W = 1</strong> does not mean data is written to only one server. Data is still replicated across all servers (<strong>s0</strong>, <strong>s1</strong>, and <strong>s2</strong>). However, the coordinator only needs one acknowledgment to mark the write operation as successful. For instance, if <strong>s1</strong> sends an acknowledgment, the coordinator does not need to wait for responses from <strong>s0</strong> or <strong>s2</strong>.</li>
+</ul>
+<p>The <strong>coordinator</strong>, acting as a proxy between the client and the nodes, manages these quorum checks.</p>
+<h3 id="tradeoff-latency-vs-consistency">Tradeoff: Latency vs. Consistency<a class="headerlink" href="#tradeoff-latency-vs-consistency" title="Permanent link">&para;</a></h3>
+<p>The configuration of <strong>N</strong>, <strong>W</strong>, and <strong>R</strong> represents a tradeoff between operation speed and consistency:</p>
+<ul>
+<li>If <strong>W = 1</strong> or <strong>R = 1</strong>, operations complete quickly because the coordinator only waits for a response from one replica.</li>
+<li>If <strong>W &gt; 1</strong> or <strong>R &gt; 1</strong>, better consistency is achieved, but latency increases as the coordinator waits for responses from more replicas.</li>
+</ul>
+<h3 id="ensuring-strong-consistency">Ensuring Strong Consistency<a class="headerlink" href="#ensuring-strong-consistency" title="Permanent link">&para;</a></h3>
+<p>If <strong>W + R &gt; N</strong>, the system guarantees strong consistency. This is because there will always be at least one replica with the latest data to ensure consistency.</p>
+<h3 id="common-configurations">Common Configurations<a class="headerlink" href="#common-configurations" title="Permanent link">&para;</a></h3>
+<p>Depending on use cases, different configurations of <strong>N</strong>, <strong>W</strong>, and <strong>R</strong> are used:</p>
+<ol>
+<li>
+<p><strong>Fast Read</strong>:</p>
+<ul>
+<li><strong>R = 1</strong>, <strong>W = N</strong></li>
+<li>Data is written to all replicas, but reads return quickly by querying only one replica.</li>
+<li>
+<p><strong>Fast Write</strong>:</p>
+</li>
+<li>
+<p><strong>W = 1</strong>, <strong>R = N</strong></p>
+</li>
+<li>Writes require only one acknowledgment, but reads query all replicas for consistency.</li>
+<li>
+<p><strong>Strong Consistency</strong>:</p>
+</li>
+<li>
+<p><strong>W + R &gt; N</strong> (e.g., <strong>N = 3, W = R = 2</strong>)</p>
+</li>
+<li>Ensures there is at least one replica with the latest data in overlap between read and write quorums.</li>
+<li>
+<p><strong>Weaker Consistency</strong>:</p>
+</li>
+<li>
+<p><strong>W + R ≤ N</strong></p>
+</li>
+<li>Strong consistency is not guaranteed.</li>
+</ul>
+</li>
+</ol>
+<p>By tuning <strong>N</strong>, <strong>W</strong>, and <strong>R</strong>, systems can be optimized for desired levels of latency, throughput, and consistency based on specific requirements.</p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../MVCC%20in%20DB/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../MVCC%20in%20DB/" class="btn btn-xs btn-link">
+        MVCC in DB
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../BLOB/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../BLOB/" class="btn btn-xs btn-link">
+        BLOB
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

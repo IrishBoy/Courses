@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>2. Hinted Handoff - digitalbabushka learning</title>
+    <link href="../../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "How Does Hinted Handoff Work?", url: "#_top", children: [
+          ]},
+          {title: "Why Is Hinted Handoff Useful?", url: "#why-is-hinted-handoff-useful", children: [
+          ]},
+          {title: "But It\u2019s Not Perfect", url: "#but-its-not-perfect", children: [
+          ]},
+          {title: "How to Visualize Hinted Handoff?", url: "#how-to-visualize-hinted-handoff", children: [
+              {title: "Example Visualization", url: "#example-visualization" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../../../../js/base.js"></script>
+      <script src="../../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../99.Additional%20Materials/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../99.Additional%20Materials/" class="btn btn-xs btn-link">
+        99.Additional Materials
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../1.%20Cohesion%20and%20Coupeling/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../1.%20Cohesion%20and%20Coupeling/" class="btn btn-xs btn-link">
+        1. Cohesion and Coupeling
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>In simple terms, <strong>Hinted Handoff</strong> is a clever way for distributed systems to handle <strong>write operations</strong> even when some of the nodes in the system are temporarily unavailable. It ensures that data isn’t lost and the system can recover smoothly when everything is back online.</p>
+<hr />
+<h3 id="how-does-hinted-handoff-work"><strong>How Does Hinted Handoff Work?</strong><a class="headerlink" href="#how-does-hinted-handoff-work" title="Permanent link">&para;</a></h3>
+<p>Let’s break it down step by step:</p>
+<ol>
+<li>
+<p><strong>Writing Data When Nodes Are Down</strong><br />
+    Imagine you’re writing data, but some of the nodes responsible for storing that data are unreachable—maybe they’re down or have network issues. Instead of failing the write, another available node steps in and stores the data temporarily.</p>
+<ul>
+<li>Along with the data, it keeps a “<strong>hint</strong>”—basically a note saying: <em>“Hey, this data actually belongs to Node X, but I’ll hold onto it for now.”</em></li>
+<li><strong>Holding the Data Safely</strong><br />
+The available node holds onto the data and the hint until the unavailable node (Node X) comes back online.</li>
+</ul>
+</li>
+<li>
+<p><strong>Reconciliation: Delivering the Data</strong><br />
+    Once Node X comes back, the node holding the hint reaches out and transfers the data to it.</p>
+<ul>
+<li>This process updates Node X with the correct data, and the hint is cleared from the temporary node.</li>
+<li><strong>Getting Back to Normal</strong><br />
+Eventually, all nodes are up-to-date, and the system is back in a consistent state.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="why-is-hinted-handoff-useful"><strong>Why Is Hinted Handoff Useful?</strong><a class="headerlink" href="#why-is-hinted-handoff-useful" title="Permanent link">&para;</a></h3>
+<p>Hinted Handoff comes with several benefits that make it a lifesaver in distributed systems:</p>
+<ul>
+<li><strong>Writes Always Work</strong>: Even if some nodes are down, the system can still accept and store writes. That means fewer interruptions and better availability.</li>
+<li><strong>No Data Loss</strong>: By temporarily holding the data, Hinted Handoff ensures that nothing gets lost, even if some parts of the system fail.</li>
+<li><strong>Eventual Consistency</strong>: Once the nodes come back online, the system syncs up and all nodes have the correct data. It may take a little time, but consistency is eventually guaranteed.</li>
+<li><strong>Handles Failures Gracefully</strong>: Systems can bounce back after temporary failures without needing a complex recovery process.</li>
+<li><strong>Automatic Recovery</strong>: As soon as nodes are back, the reconciliation process happens automatically—no manual fixes needed.</li>
+</ul>
+<hr />
+<h3 id="but-its-not-perfect"><strong>But It’s Not Perfect</strong><a class="headerlink" href="#but-its-not-perfect" title="Permanent link">&para;</a></h3>
+<p>Of course, there are some downsides to using Hinted Handoff:</p>
+<ol>
+<li><strong>Temporary Inconsistency</strong>: Until the unavailable nodes are updated, some parts of the system might have outdated data. For applications that require “perfect” consistency at all times, this can be a problem.</li>
+<li><strong>Resource Usage</strong>: The nodes storing temporary data and hints need extra resources like storage and CPU, which can add load to the system.</li>
+<li><strong>More Complexity</strong>: Implementing and managing hints adds some complexity to the system design.</li>
+<li><strong>Risk of Losing Data</strong>: If the node holding the hint crashes before it can transfer the data, there’s a risk of losing that information (though replication strategies can help reduce this risk).</li>
+<li><strong>Delays</strong>: Synchronizing everything back to normal can take time, which may not be ideal for real-time systems that need instant consistency.</li>
+</ol>
+<hr />
+<h2 id="how-to-visualize-hinted-handoff"><strong>How to Visualize Hinted Handoff?</strong><a class="headerlink" href="#how-to-visualize-hinted-handoff" title="Permanent link">&para;</a></h2>
+<p>Here’s a simple picture to help you understand:</p>
+<ol>
+<li>
+<p><strong>Step 1: Node Failure</strong></p>
+<ul>
+<li>Node A tries to write data to Node X (unavailable).</li>
+<li>Node A temporarily stores the data and a hint for Node X.</li>
+<li>
+<p><strong>Step 2: Holding the Data</strong></p>
+</li>
+<li>
+<p>Node A keeps the data safe and waits for Node X to come back online.</p>
+</li>
+<li>
+<p><strong>Step 3: Reconciliation</strong></p>
+</li>
+<li>
+<p>When Node X is back, Node A delivers the data along with the hint.</p>
+</li>
+<li>Node X updates its storage, and everything syncs up.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="example-visualization"><strong>Example Visualization</strong><a class="headerlink" href="#example-visualization" title="Permanent link">&para;</a></h3>
+<p>If you’re looking for an illustration, here’s a simple conceptual image:</p>
+<h4 id="diagram">Diagram:<a class="headerlink" href="#diagram" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Node A</strong> → Writes data intended for <strong>Node X</strong>.</li>
+<li><strong>Node A</strong> holds:<ul>
+<li>Data: <code>Some important data</code></li>
+<li>Hint: “For Node X”</li>
+</ul>
+</li>
+<li>Once <strong>Node X</strong> is back:<ul>
+<li><strong>Node A</strong> sends the data → <strong>Node X</strong> stores it.</li>
+<li>Hint cleared.</li>
+</ul>
+</li>
+</ol>
+<p><img alt="Hinted Handoff.png" src="../../../Files/Hinted%20Handoff.png" /></p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../99.Additional%20Materials/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../99.Additional%20Materials/" class="btn btn-xs btn-link">
+        99.Additional Materials
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../1.%20Cohesion%20and%20Coupeling/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../1.%20Cohesion%20and%20Coupeling/" class="btn btn-xs btn-link">
+        1. Cohesion and Coupeling
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>ACID - digitalbabushka learning</title>
+    <link href="../../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+        ];
+
+    </script>
+    <script src="../../../../../js/base.js"></script>
+      <script src="../../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../BLOB/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../BLOB/" class="btn btn-xs btn-link">
+        BLOB
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../1.Database%20Types/0.%2012%20Database%20types/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../1.Database%20Types/0.%2012%20Database%20types/" class="btn btn-xs btn-link">
+        Relational Database
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p><strong>Atomicity</strong></p>
+<p>All the writes in a transaction are executed as a single unit and cannot be divided into smaller parts. If any error occurs during the transaction, all changes are undone, ensuring that either all the writes are applied or none at all. This is why atomicity is often described as "all or nothing."</p>
+<p><strong>Consistency</strong></p>
+<p>In this context, consistency refers to maintaining the integrity of the database by ensuring that all data adheres to the predefined rules and constraints. Unlike the CAP theorem's concept of consistency, which focuses on reading the latest write or returning an error, here it means that every transaction must leave the database in a valid state.</p>
+<p><strong>Isolation</strong></p>
+<p>When multiple transactions are running concurrently, isolation ensures that the operations of one transaction do not interfere with another. The strictest form of isolation is "serializability," where each transaction behaves as though it is the only one being processed. Although serializability is difficult to achieve in practice, more relaxed isolation levels are commonly used.</p>
+<p><strong>Durability</strong></p>
+<p>Once a transaction is successfully committed, the data is guaranteed to be stored permanently, even in the event of a system failure. In distributed systems, durability often involves replicating the data across multiple nodes to ensure it remains intact.</p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../BLOB/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../BLOB/" class="btn btn-xs btn-link">
+        BLOB
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../1.Database%20Types/0.%2012%20Database%20types/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../1.Database%20Types/0.%2012%20Database%20types/" class="btn btn-xs btn-link">
+        Relational Database
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

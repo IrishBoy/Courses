@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Ticket Server - digitalbabushka learning</title>
+    <link href="../../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "How does it work?", url: "#_top", children: [
+          ]},
+          {title: "Pros:", url: "#pros", children: [
+          ]},
+          {title: "Cons:", url: "#cons", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../../../../js/base.js"></script>
+      <script src="../../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../../5.Network/DNS/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../../5.Network/DNS/" class="btn btn-xs btn-link">
+        DNS
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../Persistent%20Data/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../Persistent%20Data/" class="btn btn-xs btn-link">
+        Persistent Data
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>Ticket servers are a cool way to create unique IDs. The idea is simple yet brilliant: they act as a centralized system for generating distributed primary keys. The folks at Flickr came up with this system, and it’s explained in their engineering blog: <a href="https://code.flickr.net/2010/02/08/ticket-servers-distributed-unique-primary-keys-on-the-cheap/">Flickr's Engineering Blog Post</a>.</p>
+<p><img alt="Ticket Server.png" src="../../../Files/Ticket%20Server.png" /></p>
+<h4 id="how-does-it-work">How does it work?<a class="headerlink" href="#how-does-it-work" title="Permanent link">&para;</a></h4>
+<p>Here’s the gist:</p>
+<ul>
+<li>There’s a single database server called the <strong>Ticket Server</strong> that uses an <em>auto_increment</em> feature to generate sequential IDs.</li>
+<li>These IDs are handed out to different systems that need unique identifiers.</li>
+</ul>
+<h4 id="pros">Pros:<a class="headerlink" href="#pros" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Straightforward numeric IDs</strong>: Simple, easy to use, and universally recognized.</li>
+<li><strong>Simplicity</strong>: Super easy to set up, making it a good fit for small to medium-sized apps.</li>
+</ol>
+<h4 id="cons">Cons:<a class="headerlink" href="#cons" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Single point of failure</strong>: If the ticket server crashes, everything relying on it comes to a halt.<ul>
+<li>Solution? Use multiple ticket servers. But that’s not as simple as it sounds because syncing data between them can get tricky.</li>
+</ul>
+</li>
+</ol>
+<p>This approach might not work for massive systems with super high demands, but for many applications, it’s a great start!</p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../../../5.Network/DNS/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../../../5.Network/DNS/" class="btn btn-xs btn-link">
+        DNS
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../Persistent%20Data/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../Persistent%20Data/" class="btn btn-xs btn-link">
+        Persistent Data
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

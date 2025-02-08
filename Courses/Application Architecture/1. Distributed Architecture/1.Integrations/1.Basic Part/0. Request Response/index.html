@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>0. Request Response - digitalbabushka learning</title>
+    <link href="../../../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Request Response", url: "#_top", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../../../../../js/base.js"></script>
+      <script src="../../../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../1.REST/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../1.REST/" class="btn btn-xs btn-link">
+        1.REST
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../../../Architecture%20Cheat%20Sheet%20Introduction/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../../../Architecture%20Cheat%20Sheet%20Introduction/" class="btn btn-xs btn-link">
+        Architecture Cheat Sheet Introduction
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>When using any application, you face one of two fundamental approaches</p>
+<ul>
+<li>Local app</li>
+<li>Web application</li>
+</ul>
+<p>The main difference between those types is the <strong>need of the internet connection to operate.</strong> 
+Local apps, such as</p>
+<ul>
+<li>Calculator</li>
+<li>Camera</li>
+<li>etc.</li>
+</ul>
+<p>Do not send or receive information from internet in order to work properly 
+When it comes to the apps that require internet, the following ones may be listed</p>
+<ul>
+<li>Weather forecast</li>
+<li>News</li>
+<li>Chess game</li>
+</ul>
+<p>Those apps use internet.</p>
+<p>Now, let's pick up the second category and break down the logic of their operating</p>
+<p>So, there is some logic on your device and some logic on the server
+<img alt="Req diagram.png" src="../../../../Files/Req%20diagram.png" /></p>
+<p>But how those two parts communicate?</p>
+<p>Easy question - over the web</p>
+<p>If we go deeper, there is a list of protocols that are being used for this communication (Application layer of <a href="../../../../5.Network/OSI%20Model/">OSI Model</a>)</p>
+<ul>
+<li>
+<p><a href="../../../../5.Network/Protocols/HTTP/">HTTP</a> - Hyper Text Transfer Protocol (or more secure HTTPS)</p>
+</li>
+<li>
+<p><a href="../../../../5.Network/Protocols/FTP/">FTP</a> - File Transfer Protocol</p>
+</li>
+<li>
+<p><a href="../../../../5.Network/DNS/">DNS</a> - Domain Name System</p>
+</li>
+<li>
+<p><a href="../../../../5.Network/Protocols/AMQP/">AMQP</a> - Advanced Message Queuing Protocol</p>
+</li>
+<li>
+<p><a href="../../../../5.Network/Protocols/SSH/">SSH</a> - Secure Shell</p>
+</li>
+<li>
+<p>etc.</p>
+</li>
+</ul>
+<h2 id="request-response">Request Response<a class="headerlink" href="#request-response" title="Permanent link">&para;</a></h2>
+<p>Request-response model is the main basic pattern when we talk about integrations. The logic behind it is very simple</p>
+<ul>
+<li>You make a request (call a method)</li>
+<li>You receive a response</li>
+</ul>
+<p>Which means that by default no other system can get your response, as well as the fact that initiator and target are known.
+Of course, we should mention here <a href="../../../../Additional%20materials/%28A%29Sync/"><strong>sync/asycn</strong></a>, but for now it is not that important</p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../1.REST/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../1.REST/" class="btn btn-xs btn-link">
+        1.REST
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../../../Architecture%20Cheat%20Sheet%20Introduction/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../../../Architecture%20Cheat%20Sheet%20Introduction/" class="btn btn-xs btn-link">
+        Architecture Cheat Sheet Introduction
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

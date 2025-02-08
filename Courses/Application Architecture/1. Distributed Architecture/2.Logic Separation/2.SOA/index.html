@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>2.SOA - digitalbabushka learning</title>
+    <link href="../../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+        ];
+
+    </script>
+    <script src="../../../../../js/base.js"></script>
+      <script src="../../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../3.MSA/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../3.MSA/" class="btn btn-xs btn-link">
+        3.MSA
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../1.Monolith/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../1.Monolith/" class="btn btn-xs btn-link">
+        1.Monolith
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p><a href="../1.Monolith/">Monolith</a> is nice, it is easy to start, deploy and test and many other things. </p>
+<blockquote>
+<p>NB:  we will compare all the approaches by the end of the section</p>
+</blockquote>
+<p>However, it is also may be a bit challenging when your product grows and absorbs more and more functionality, since more and more logical modules appear. This leads to increasing difficulty of</p>
+<ul>
+<li>New modules integrations</li>
+<li>Support of the legacy</li>
+</ul>
+<p>At this point people started to think about possibility to separate logical modules one from another, making them more independent. This would allow to work on any given module without interference with others. For example, we can distinguish billing service from the rest of the application since </p>
+<ul>
+<li>We may need to adjust it to <a href="../../../Additional%20materials/PCI%20DSS/">PCI DSS</a></li>
+<li>It is called from every other module with different parameters and we would like to create universal interface</li>
+<li>It is update really often and we don't want to redeploy the whole application every time.</li>
+</ul>
+<p>As a result, SOA has appeared.</p>
+<p>SOA stands for Service Oriented Architecture</p>
+<p>But what does it mean ? Let's look at a picture, I've stoled from some site a long time ago, while writing my thesis back in 2022</p>
+<p><img alt="Pasted image 20241105074530.png" src="../../../Files/Pasted%20image%2020241105074530.png" />
+On this diagram you may witness the most common example of SOA, let's break it down</p>
+<ul>
+<li>Software components are divided into services </li>
+<li>Service is responsible for specific functionality and should perform without knowing anything about other services or system context</li>
+<li>Services are reusable </li>
+<li>Services are usually integrated with presentation layer via Enterprise Service Bus</li>
+<li>Services are accessible via network protocols such as XML/HTTP or JSON/HTTP</li>
+<li>Services may be built from scratch, but usually are used as imported functions from legacy systems</li>
+<li>Shared database</li>
+</ul>
+<p>Also, besides al those facts I'd like to highlight one more, which may spark some debates</p>
+<ul>
+<li>Repetitive code is fine, we just make ctrl + c , ctrl + v
+Why? Because in this approach we focus not on separating logical code parts, but on business side of the process. Meaning that we can freely have the same code in the different services.</li>
+</ul>
+<p>Let's dive deeper into advantages and disadvantages</p>
+<table>
+<thead>
+<tr>
+<th><center>Advantages</center></th>
+<th><center>Drawbacks</center></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><center>Faster time to market (Big companies)</center><br><br><center>As reusability is one of the main axioms in the SOA paradigm, importing existing functions and/or services that were implemented previously would cause a reduction of development time of new products.</center></td>
+<td><center>High cost</center><br><br><center> Besides being easily supported, the process of setting up a SOA project is irrevocably linked with giant monetary investments into technologies, development, and human resources. Such a curse is dictated by the need of specialists with deep expertise and a vast array of specific technological advances</center></td>
+</tr>
+<tr>
+<td><center>Parts independence</center><br><br><br><center>Behind being one of the most desirable characteristics of an application in programmers’ world, such a point plays a pivotal role in getting rid of a ripple effect and all other consequences of tight coupling.<br></center></td>
+<td><center>Need in high bandwidth server</center><br><br><center>As almost all web-services send and receive an enormous amount of information frequently, the enterprise service bus is to be run on a very powerful workstation that will be capable of routing all those millions of requests.</center></td>
+</tr>
+<tr>
+<td><center>Easy maintenance</center><br><br><center>There is no need to keep in mind all connections as in monolithic one, as well it is not necessary to track all logic as every single service is responsible only for one business part.</center><br><br></td>
+<td><center>Low reliability of internet protocols</center><br><br><center>The Internet network is accountable for communication between services, unfortunately it does not always work in a proper way in order to fulfill customers’ and developers’ needs, just as sporadically occur some receiving or sending issues connected with time.</center></td>
+</tr>
+<tr>
+<td><center>Scalability</center><br><br><center>Several instances of a service can be launched on different machines.</center><br></td>
+<td></td>
+</tr>
+<tr>
+<td><center>Improved collaboration between IT and business</center><br><br><center>Since every service is accountable for only one business task, business-analyst is able to work in a more efficient way with developers’ team as he or she may now concentrate on business insights not on tracking all connections inside an application</center></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../3.MSA/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../3.MSA/" class="btn btn-xs btn-link">
+        3.MSA
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../1.Monolith/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../1.Monolith/" class="btn btn-xs btn-link">
+        1.Monolith
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

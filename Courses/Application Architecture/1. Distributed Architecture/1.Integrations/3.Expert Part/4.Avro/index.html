@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>4.Avro - digitalbabushka learning</title>
+    <link href="../../../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Typical Use Cases:", url: "#_top", children: [
+          ]},
+          {title: "How does it work?", url: "#how-does-it-work", children: [
+              {title: "1. Basic Avro Schema and Serialization (Python)", url: "#1-basic-avro-schema-and-serialization-python" },
+              {title: "2. Avro with Nullable Fields", url: "#2-avro-with-nullable-fields" },
+              {title: "3. Writing Avro Data to a File (Python)", url: "#3-writing-avro-data-to-a-file-python" },
+              {title: "4. Schema Evolution Example", url: "#4-schema-evolution-example" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../../../../../js/base.js"></script>
+      <script src="../../../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../5.Falcor/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../5.Falcor/" class="btn btn-xs btn-link">
+        5.Falcor
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../3.Apache%20Thrift/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../3.Apache%20Thrift/" class="btn btn-xs btn-link">
+        3.Apache Thrift
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>Apache Avro is a data serialization framework 
+Basically, it is another way of serializing <a href="../../../../Additional%20materials/JSON/">JSON</a></p>
+<p>Key features of Avro include:</p>
+<ol>
+<li><strong>Compact Serialization</strong>: Avro uses a compact binary format f</li>
+<li><strong>Schema-Based</strong>: Avro relies on schemas to define the structure of the data being serialized. The schema is stored alongside the data, allowing for schema evolution. This means you can change the schema over time (e.g., adding or removing fields) without breaking backward or forward compatibility.</li>
+<li><strong>Interoperability</strong>: Since the schema is embedded with the data, any system that reads Avro-serialized data can interpret it without needing additional information, making it great for distributed systems.</li>
+</ol>
+<h3 id="typical-use-cases">Typical Use Cases:<a class="headerlink" href="#typical-use-cases" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Data Storage</strong>: Avro is often used with systems like Hadoop, Apache Kafka, and Apache Flink for storing large amounts of data efficiently.</li>
+<li><strong>Data Interchange</strong>: Since Avro is language-neutral, it is widely used for cross-language RPC (Remote Procedure Calls) and message passing in distributed systems.</li>
+</ul>
+<p>It is commonly paired with other technologies like <a href="../../1.Basic%20Part/5.kafka/">5.kafka</a> for message queuing, or <a href="../../../../2.Data/Hadoop/">Hadoop</a> for big data storage and processing.</p>
+<h2 id="how-does-it-work">How does it work?<a class="headerlink" href="#how-does-it-work" title="Permanent link">&para;</a></h2>
+<h3 id="1-basic-avro-schema-and-serialization-python">1. <strong>Basic Avro Schema and Serialization (Python)</strong><a class="headerlink" href="#1-basic-avro-schema-and-serialization-python" title="Permanent link">&para;</a></h3>
+<p>First, you define the Avro schema in JSON format. This schema will describe the structure of the data you're going to serialize.</p>
+<h4 id="avro-schema-json">Avro Schema (JSON)<a class="headerlink" href="#avro-schema-json" title="Permanent link">&para;</a></h4>
+<p><div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;record&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;User&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;fields&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;name&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;age&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;int&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;email&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;null&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">],</span><span class="w"> </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+This schema describes a <code>User</code> record with three fields: <code>name</code> (string), <code>age</code> (integer), and <code>email</code> (nullable string with a default value of <code>null</code>).</p>
+<h4 id="python-example-serialization-and-deserialization">Python Example (Serialization and Deserialization)<a class="headerlink" href="#python-example-serialization-and-deserialization" title="Permanent link">&para;</a></h4>
+<p>Now, let's use Python to serialize and deserialize data based on this Avro schema.</p>
+<ol>
+<li>
+<p>Install the <code>avro</code> package if you haven't already:
+   <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>avro-python3
+</code></pre></div></p>
+</li>
+<li>
+<p>Example Python script:</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">avro.schema</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">avro.io</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
+
+
+<span class="n">schema_json</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">{</span>
+<span class="s2">  &quot;type&quot;: &quot;record&quot;,</span>
+<span class="s2">  &quot;name&quot;: &quot;User&quot;,</span>
+<span class="s2">  &quot;fields&quot;: [</span>
+<span class="s2">    {&quot;name&quot;: &quot;name&quot;, &quot;type&quot;: &quot;string&quot;},</span>
+<span class="s2">    {&quot;name&quot;: &quot;age&quot;, &quot;type&quot;: &quot;int&quot;},</span>
+<span class="s2">    {&quot;name&quot;: &quot;email&quot;, &quot;type&quot;: [&quot;null&quot;, &quot;string&quot;], &quot;default&quot;: null}</span>
+<span class="s2">  ]</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+
+<span class="n">schema</span> <span class="o">=</span> <span class="n">avro</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">schema_json</span><span class="p">)</span>
+
+<span class="c1"># Create an example user record</span>
+<span class="n">user</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;John Doe&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
+    <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;john.doe@example.com&quot;</span>
+<span class="p">}</span>
+
+
+<span class="n">bytes_writer</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
+<span class="n">encoder</span> <span class="o">=</span> <span class="n">avro</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">BinaryEncoder</span><span class="p">(</span><span class="n">bytes_writer</span><span class="p">)</span>
+<span class="n">datum_writer</span> <span class="o">=</span> <span class="n">avro</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">DatumWriter</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>
+<span class="n">datum_writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">encoder</span><span class="p">)</span>
+<span class="n">serialized_data</span> <span class="o">=</span> <span class="n">bytes_writer</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Serialized data: </span><span class="si">{</span><span class="n">serialized_data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="n">bytes_reader</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">serialized_data</span><span class="p">)</span>
+<span class="n">decoder</span> <span class="o">=</span> <span class="n">avro</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">BinaryDecoder</span><span class="p">(</span><span class="n">bytes_reader</span><span class="p">)</span>
+<span class="n">datum_reader</span> <span class="o">=</span> <span class="n">avro</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">DatumReader</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>
+<span class="n">deserialized_user</span> <span class="o">=</span> <span class="n">datum_reader</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">decoder</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Deserialized data: </span><span class="si">{</span><span class="n">deserialized_user</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="output">Output:<a class="headerlink" href="#output" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>Serialized data: b&#39;\x06John Doe8\x1ejohn.doe@example.com&#39;
+Deserialized data: {&#39;name&#39;: &#39;John Doe&#39;, &#39;age&#39;: 28, &#39;email&#39;: &#39;john.doe@example.com&#39;}
+</code></pre></div>
+<h3 id="2-avro-with-nullable-fields">2. <strong>Avro with Nullable Fields</strong><a class="headerlink" href="#2-avro-with-nullable-fields" title="Permanent link">&para;</a></h3>
+<p>Avro supports nullable fields using a <strong>union type</strong>. Here's an example where the <code>email</code> field can either be a string or <code>null</code>.</p>
+<h4 id="schema-with-nullable-field-json">Schema with Nullable Field (JSON)<a class="headerlink" href="#schema-with-nullable-field-json" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;record&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;User&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;fields&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;name&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;age&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;int&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;email&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;null&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">],</span><span class="w"> </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="python-example-handling-null-values">Python Example (Handling Null Values)<a class="headerlink" href="#python-example-handling-null-values" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">user_without_email</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Jane Doe&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
+    <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="kc">None</span>
+<span class="p">}</span>
+
+
+<span class="n">bytes_writer</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
+<span class="n">encoder</span> <span class="o">=</span> <span class="n">avro</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">BinaryEncoder</span><span class="p">(</span><span class="n">bytes_writer</span><span class="p">)</span>
+<span class="n">datum_writer</span> <span class="o">=</span> <span class="n">avro</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">DatumWriter</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>
+<span class="n">datum_writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">user_without_email</span><span class="p">,</span> <span class="n">encoder</span><span class="p">)</span>
+<span class="n">serialized_data</span> <span class="o">=</span> <span class="n">bytes_writer</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Serialized data (without email): </span><span class="si">{</span><span class="n">serialized_data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="n">bytes_reader</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">serialized_data</span><span class="p">)</span>
+<span class="n">decoder</span> <span class="o">=</span> <span class="n">avro</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">BinaryDecoder</span><span class="p">(</span><span class="n">bytes_reader</span><span class="p">)</span>
+<span class="n">deserialized_user</span> <span class="o">=</span> <span class="n">datum_reader</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">decoder</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Deserialized data (without email): </span><span class="si">{</span><span class="n">deserialized_user</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="output_1">Output:<a class="headerlink" href="#output_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>Serialized data (without email): b&#39;\x0cJane Doe2\x00&#39;
+Deserialized data (without email): {&#39;name&#39;: &#39;Jane Doe&#39;, &#39;age&#39;: 25, &#39;email&#39;: None}
+</code></pre></div>
+<h3 id="3-writing-avro-data-to-a-file-python">3. <strong>Writing Avro Data to a File (Python)</strong><a class="headerlink" href="#3-writing-avro-data-to-a-file-python" title="Permanent link">&para;</a></h3>
+<p>In real-world applications, Avro data is often written to files, especially in big data processing. Here's an example of how to write serialized Avro data to a file.</p>
+<h4 id="writing-avro-data-to-a-file">Writing Avro Data to a File:<a class="headerlink" href="#writing-avro-data-to-a-file" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">avro.datafile</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">avro.io</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">avro.schema</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
+
+<span class="n">schema_json</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">{</span>
+<span class="s2">  &quot;type&quot;: &quot;record&quot;,</span>
+<span class="s2">  &quot;name&quot;: &quot;User&quot;,</span>
+<span class="s2">  &quot;fields&quot;: [</span>
+<span class="s2">    {&quot;name&quot;: &quot;name&quot;, &quot;type&quot;: &quot;string&quot;},</span>
+<span class="s2">    {&quot;name&quot;: &quot;age&quot;, &quot;type&quot;: &quot;int&quot;},</span>
+<span class="s2">    {&quot;name&quot;: &quot;email&quot;, &quot;type&quot;: [&quot;null&quot;, &quot;string&quot;], &quot;default&quot;: null}</span>
+<span class="s2">  ]</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="n">schema</span> <span class="o">=</span> <span class="n">avro</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">schema_json</span><span class="p">)</span>
+
+<span class="n">users</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;John Doe&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span> <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;john.doe@example.com&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Jane Doe&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+<span class="p">]</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;users.avro&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">avro_file</span><span class="p">:</span>
+    <span class="n">writer</span> <span class="o">=</span> <span class="n">avro</span><span class="o">.</span><span class="n">datafile</span><span class="o">.</span><span class="n">DataFileWriter</span><span class="p">(</span><span class="n">avro_file</span><span class="p">,</span> <span class="n">avro</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">DatumWriter</span><span class="p">(),</span> <span class="n">schema</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">users</span><span class="p">:</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data written to users.avro&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="reading-avro-data-from-a-file">Reading Avro Data from a File:<a class="headerlink" href="#reading-avro-data-from-a-file" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;users.avro&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">avro_file</span><span class="p">:</span>
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">avro</span><span class="o">.</span><span class="n">datafile</span><span class="o">.</span><span class="n">DataFileReader</span><span class="p">(</span><span class="n">avro_file</span><span class="p">,</span> <span class="n">avro</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">DatumReader</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+    <span class="n">reader</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<h4 id="output_2">Output:<a class="headerlink" href="#output_2" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>{&#39;name&#39;: &#39;John Doe&#39;, &#39;age&#39;: 28, &#39;email&#39;: &#39;john.doe@example.com&#39;}
+{&#39;name&#39;: &#39;Jane Doe&#39;, &#39;age&#39;: 25, &#39;email&#39;: None}
+</code></pre></div>
+<h3 id="4-schema-evolution-example">4. <strong>Schema Evolution Example</strong><a class="headerlink" href="#4-schema-evolution-example" title="Permanent link">&para;</a></h3>
+<p>One of Avro’s powerful features is <strong>schema evolution</strong>. Let’s say you add a new field to the schema but still want to read data serialized with the old schema.</p>
+<h4 id="original-schema-old">Original Schema (Old):<a class="headerlink" href="#original-schema-old" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;record&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;User&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;fields&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;name&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;age&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;int&quot;</span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="new-schema-evolved">New Schema (Evolved):<a class="headerlink" href="#new-schema-evolved" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;record&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;User&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;fields&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;name&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;age&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;int&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;email&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;null&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">],</span><span class="w"> </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="python-example-handling-schema-evolution">Python Example (Handling Schema Evolution):<a class="headerlink" href="#python-example-handling-schema-evolution" title="Permanent link">&para;</a></h4>
+<p>If data was written with the old schema, you can still read it with the new schema that has the <code>email</code> field added.</p>
+<div class="highlight"><pre><span></span><code><span class="n">new_schema_json</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">{</span>
+<span class="s2">  &quot;type&quot;: &quot;record&quot;,</span>
+<span class="s2">  &quot;name&quot;: &quot;User&quot;,</span>
+<span class="s2">  &quot;fields&quot;: [</span>
+<span class="s2">    {&quot;name&quot;: &quot;name&quot;, &quot;type&quot;: &quot;string&quot;},</span>
+<span class="s2">    {&quot;name&quot;: &quot;age&quot;, &quot;type&quot;: &quot;int&quot;},</span>
+<span class="s2">    {&quot;name&quot;: &quot;email&quot;, &quot;type&quot;: [&quot;null&quot;, &quot;string&quot;], &quot;default&quot;: null}</span>
+<span class="s2">  ]</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">new_schema</span> <span class="o">=</span> <span class="n">avro</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">new_schema_json</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;users_old.avro&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">avro_file</span><span class="p">:</span>
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">avro</span><span class="o">.</span><span class="n">datafile</span><span class="o">.</span><span class="n">DataFileReader</span><span class="p">(</span><span class="n">avro_file</span><span class="p">,</span> <span class="n">avro</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">DatumReader</span><span class="p">(</span><span class="n">new_schema</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">user</span><span class="p">)</span> 
+    <span class="n">reader</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<h4 id="output_3">Output:<a class="headerlink" href="#output_3" title="Permanent link">&para;</a></h4>
+<p>```plaintext
+{'name': 'John Doe', 'age': 28, 'email': None}
+{'name': 'Jane Doe', 'age': 25, 'email': None}</p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../5.Falcor/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../5.Falcor/" class="btn btn-xs btn-link">
+        5.Falcor
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../3.Apache%20Thrift/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../3.Apache%20Thrift/" class="btn btn-xs btn-link">
+        3.Apache Thrift
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

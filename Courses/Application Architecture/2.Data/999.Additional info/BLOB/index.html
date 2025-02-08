@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>BLOB - digitalbabushka learning</title>
+    <link href="../../../../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../../../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../../../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../../../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../../../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../../../../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Benefits of this storage model", url: "#_top", children: [
+          ]},
+          {title: "Best use cases", url: "#best-use-cases", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../../../../js/base.js"></script>
+      <script src="../../../../../javascripts/mathjax.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../Data%20Consistency/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../Data%20Consistency/" class="btn btn-xs btn-link">
+        Data Consistency
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../ACID/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../ACID/" class="btn btn-xs btn-link">
+        ACID
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>Blob storage is <strong>a method of storing large, unstructured data</strong>. A "blob" represents a chunk of binary data without any specific format or structure.</p>
+<p>This form of storage is a subset of <strong>object storage</strong>, which organizes data into a flat, non-hierarchical structure often referred to as a "data lake" or "data pool." Object storage differs significantly from traditional approaches like file and block storage:</p>
+<ul>
+<li><strong>File storage</strong> organizes data within directories and folders in a structured hierarchy.</li>
+<li><strong>Block storage</strong> divides data into fixed-size chunks called "blocks."</li>
+</ul>
+<p>While file and block storage systems may struggle to scale effectively, object storage provides virtually limitless capacity, making it ideal for certain modern needs. However, accessing data within object storage may present additional complexities compared to file or block-based systems.</p>
+<h1 id="benefits-of-this-storage-model"><strong>Benefits of this storage model</strong><a class="headerlink" href="#benefits-of-this-storage-model" title="Permanent link">&para;</a></h1>
+<ol>
+<li><strong>Scalability:</strong> It offers expansive storage capabilities that can accommodate growing data volumes without performance degradation.</li>
+<li><strong>Cloud integration:</strong> As a cloud-native solution, it is accessible from anywhere via the Internet, aligning well with cloud-centric operations.</li>
+<li><strong>Flexibility with programming languages:</strong> Developers can use various programming languages to interact with stored data, enhancing accessibility.</li>
+<li><strong>Cost efficiency:</strong> Pricing structures typically include tiers, allowing infrequently accessed data to be stored at lower costs.</li>
+</ol>
+<h1 id="best-use-cases"><strong>Best use cases</strong><a class="headerlink" href="#best-use-cases" title="Permanent link">&para;</a></h1>
+<p>Some notable applications include:</p>
+<ul>
+<li><strong>Media assets:</strong> Storing images, videos, and audio files, especially when access needs are sporadic.</li>
+<li><strong>Event logs:</strong> Preserving the continuous stream of system-generated data for analysis, though cost considerations apply for frequent data queries.</li>
+<li><strong>Backup solutions:</strong> Providing storage for backups and disaster recovery scenarios where data is rarely accessed but must remain available for emergencies.</li>
+</ul>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../Data%20Consistency/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../Data%20Consistency/" class="btn btn-xs btn-link">
+        Data Consistency
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../ACID/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../ACID/" class="btn btn-xs btn-link">
+        ACID
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>
