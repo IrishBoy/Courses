@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "9.Security/999.Additional Info/1.CSRF Attack.md",
+                "file": "1. Distributed Architecture/99.Additional Materials/Lamport Timestamps vs Vector Clocks.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "1.CSRF Attack"
+              "title": "Lamport Timestamps vs Vector Clocks"
             }
           }
         ]
@@ -172,8 +172,9 @@
   },
   "active": "95f3ba1958054b47",
   "lastOpenFiles": [
-    "2.Data/Data Vault.md",
     "9.Security/999.Additional Info/1.CSRF Attack.md",
+    "1. Distributed Architecture/99.Additional Materials/Lamport Timestamps vs Vector Clocks.md",
+    "2.Data/Data Vault.md",
     "9.Security/999.Additional Info",
     "9.Security",
     "Additional materials/SLA and Uptime.md",
@@ -207,7 +208,6 @@
     "1. Distributed Architecture/2.Logic Separation/3.MSA.md",
     "2.Data/999.Additional info/Persistant Data.md",
     "2.Data/1.Database Types/0. 12 Database types.md",
-    "1. Distributed Architecture/2.Logic Separation/CQRS.md",
     "Files/Pasted image 20241105080741.png",
     "Files/Pasted image 20241105074530.png",
     "1. Distributed Architecture/1.Integrations/5.Extra materials",
